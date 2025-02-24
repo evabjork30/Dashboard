@@ -57,6 +57,37 @@ grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
 st.write("### Filtered & Grouped Data Table")
 st.dataframe(grouped_data)
 
+# ------------------------------
+# 📌 Add Dynamic Filters in Sidebar
+# ------------------------------
+st.sidebar.write("### 🔍 Filter Data")
+
+# Department Filter
+selected_departments = st.sidebar.multiselect(
+    "Filter by Department",
+    options=grouped_data['Department'].unique(),
+    default=grouped_data['Department'].unique()  # Preselect all options by default
+)
+
+# Major Filter
+selected_majors = st.sidebar.multiselect(
+    "Filter by Major",
+    options=grouped_data['Major'].unique(),
+    default=grouped_data['Major'].unique()
+)
+
+# Apply Filters
+filtered_grouped_data = grouped_data[
+    (grouped_data['Department'].isin(selected_departments)) &
+    (grouped_data['Major'].isin(selected_majors))
+]
+
+# ------------------------------
+# 📌 Display the Dynamically Filtered Table
+# ------------------------------
+st.write("### Dynamically Filtered Data Table")
+st.dataframe(filtered_grouped_data, height=400, width=1000)
+
 
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
@@ -96,7 +127,6 @@ with col_right:
 
         # Display as a table
         st.write("### 📊 Number of Students per Department")
-        #st.dataframe(student_counts)
 
         # Create a bar chart
         fig_students, ax_students = plt.subplots(figsize=(6, 4))  # Mini bar chart size
