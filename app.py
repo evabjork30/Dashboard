@@ -94,6 +94,9 @@ with col_right:
         ax_students.set_title("Number of Students per Department", fontsize=12)
         ax_students.tick_params(axis='x', rotation=60, labelsize=8)  # Rotate labels for readability
         ax_students.set_xticklabels([label.replace(" ", "\n") for label in student_counts['Department']])
+        ax_students.set_xticklabels(student_counts['Department'], rotation=45, ha="right", fontsize=8)
+
+        plt.subplots_adjust(bottom=0.3)  # Pushes labels down to make space
 
         st.pyplot(fig_students)  # Display the bar chart
     else:
