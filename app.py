@@ -29,19 +29,31 @@ year_range = st.slider("Select Year Range:",
 
 filtered_data = df[(df['Year'] >= year_range[0]) & (df['Year'] <= year_range[1])]
 
-filtered_data['RegistrationYear'] = filtered_data['RegistrationYear'].map(lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
-filtered_data['StudentID'] = filtered_data['StudentID'].map(
+# Remove Unnecessary Columns
+filtered_data = filtered_data.drop(columns=['MajorID', 'Reg_Status', 'reg_birth_diff', 'Year'], errors='ignore')
+
+# Group Data by Student ID
+grouped_data = filtered_data.groupby('StudentID').agg(
+    RegistrationYear=('RegistrationYear', 'first'),  # Keep the first Registration Year
+    BirthYear=('BirthYear', 'first'),  # Keep the first Birth Year
+    Number_of_Semesters=('Semester', 'count'),  # Count number of semesters per student
+    Average_Credits=('Credits', 'mean'),  # Calculate average credits per student
+    Average_Grade=('Grade', 'mean')  # Calculate average grade per student
+).reset_index()
+
+grouped_data['RegistrationYear'] = grouped_data['RegistrationYear'].map(lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
+grouped_data['StudentID'] = grouped_data['StudentID'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
-filtered_data['BirthYear'] = filtered_data['BirthYear'].map(
+grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
-filtered_data['Year'] = filtered_data['Year'].map(
+grouped_data['Year'] = grouped_data['Year'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
-filtered_data['Semester'] = filtered_data['Semester'].map(
+grouped_data['Semester'] = grouped_data['Semester'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 
 # Show Filtered Data
 st.write("### Filtered Data Table")
-st.dataframe(filtered_data)
+st.dataframe(grouped_data)
 
 
 # Calculate Grade Trends
