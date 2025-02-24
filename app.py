@@ -54,8 +54,8 @@ grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
 grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
 
 # Show Grouped Data Table
-st.write("### Filtered & Grouped Data Table")
-st.dataframe(grouped_data)
+#st.write("### Filtered & Grouped Data Table")
+#st.dataframe(grouped_data)
 
 # ------------------------------
 # 📌 Add Dynamic Filters in Sidebar
@@ -70,16 +70,16 @@ selected_departments = st.sidebar.multiselect(
 )
 
 # Major Filter
-selected_majors = st.sidebar.multiselect(
-    "Filter by Major",
-    options=grouped_data['Major'].unique(),
-    default=grouped_data['Major'].unique()
+selected_major_types = st.sidebar.multiselect(
+    "Filter by Major Type",
+    options=grouped_data['Major_Type'].unique(),
+    default=grouped_data['Major_Type'].unique()
 )
 
 # Apply Filters
 filtered_grouped_data = grouped_data[
     (grouped_data['Department'].isin(selected_departments)) &
-    (grouped_data['Major'].isin(selected_majors))
+    (grouped_data['Major_Type'].isin(selected_major_types))
 ]
 
 # ------------------------------
