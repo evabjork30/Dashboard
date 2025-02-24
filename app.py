@@ -48,7 +48,7 @@ st.dataframe(filtered_data)
 grade_trends = df.groupby('Year')['Grade'].mean()
 
 # Create a Matplotlib Plot
-fig, ax = plt.subplots(figsize=(10, 5))
+fig, ax = plt.subplots(figsize=(7, 3))
 ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
 ax.set_xlabel('Year', fontsize=12.5)
 ax.set_ylabel('Average Grade', fontsize=12.5)
