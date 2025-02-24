@@ -53,17 +53,9 @@ grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
 
-
-st.write("### Interactive Filtered & Grouped Data Table")
-filtered_grouped_data = st.data_editor(
-    grouped_data,
-    column_config={
-        "Department": st.column_config.Selectbox("Filter by Department", options=grouped_data['Department'].unique()),
-        "Major": st.column_config.Selectbox("Filter by Major", options=grouped_data['Major'].unique()),
-        "Gender": st.column_config.Selectbox("Filter by Gender", options=grouped_data['Gender'].unique()),
-    },
-    hide_index=True
-)
+# Show Grouped Data Table
+st.write("### Filtered & Grouped Data Table (One Row per Student)")
+st.dataframe(grouped_data)
 
 
 # Calculate Grade Trends
