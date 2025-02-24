@@ -57,30 +57,30 @@ ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer 
 # Display in Streamlit
 st.pyplot(fig)
 
-# Compute average grade per major over time
-avg_grade_per_major = df.groupby(['Year', 'Major'])['Grade'].mean().reset_index()
+# Compute average grade per department over time
+avg_grade_per_department = df.groupby(['Year', 'Department'])['Grade'].mean().reset_index()
 
 # ------------------------------
 # Streamlit App
 # ------------------------------
 st.title("📊 Grade Inflation Dashboard")
 
-st.write("### 📈 Average Grade Per Major Program Over Time")
+st.write("### 📈 Average Grade Per Department Program Over Time")
 
-# Dropdown filter for selecting a major
-majors = df['Major'].unique()
-selected_major = st.selectbox("Select a Major Program:", majors)
+# Dropdown filter for selecting a department
+departments = df['Department'].unique()
+selected_department = st.selectbox("Select a Department:", departments)
 
-# Filter data based on the selected major
-filtered_major_data = avg_grade_per_major[avg_grade_per_major['Major'] == selected_major]
+# Filter data based on the selected department
+filtered_department_data = avg_grade_per_department[avg_grade_per_department['Department'] == selected_department]
 
-# Plot the trend for the selected major
+# Plot the trend for the selected department
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(filtered_major_data['Year'], filtered_major_data['Grade'], marker='o', linestyle='-', color='blue')
+ax.plot(filtered_department_data['Year'], filtered_department_data['Grade'], marker='o', linestyle='-', color='blue')
 
 ax.set_xlabel("Year", fontsize=12)
 ax.set_ylabel("Average Grade", fontsize=12)
-ax.set_title(f"Average Grade Trend for {selected_major}", fontsize=14, weight='bold')
+ax.set_title(f"Average Grade Trend for {selected_department}", fontsize=14, weight='bold')
 ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
 ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
