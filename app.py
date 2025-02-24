@@ -47,6 +47,13 @@ st.dataframe(filtered_data)
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
 
+# Calculate Average Grade Per Major Type (For Bar Chart)
+df.columns = df.columns.str.strip().str.lower()  # Standardize column names
+if 'major type' in df.columns:
+    avg_grade_per_major_type = df.groupby('major type')['grade'].mean().reset_index()
+else:
+    avg_grade_per_major_type = None  # Handle missing data
+
 # Split the layout: First plot on the left, extra content on the right
 col_left, col_right = st.columns([1.5, 1])  # Adjust column widths
 
@@ -70,6 +77,20 @@ with col_right:
     st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
 
     st.write("Here you can see an overview of the key statistics related to grades.")
+
+    if avg_grade_per_major_type is not None:
+        fig_bar, ax_bar = plt.subplots(figsize=(4, 3))  # Mini bar chart size
+
+        ax_bar.bar(avg_grade_per_major_type['major type'], avg_grade_per_major_type['grade'], color='skyblue')
+
+        ax_bar.set_xlabel("Major Type", fontsize=8)
+        ax_bar.set_ylabel("Avg Grade", fontsize=8)
+        ax_bar.set_title("Avg Grade by Major Type", fontsize=10)
+        ax_bar.tick_params(axis='x', rotation=45, labelsize=8)  # Rotate labels for readability
+
+        st.pyplot(fig_bar)  # Display bar chart
+    else:
+        st.warning("⚠️ 'Major Type' data not available.")
 
 col1, col2 = st.columns(2)
 
