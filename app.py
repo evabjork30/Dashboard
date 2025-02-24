@@ -81,7 +81,7 @@ with col_right:
     if avg_grade_per_major_type is not None:
         fig_bar, ax_bar = plt.subplots(figsize=(4, 3))  # Mini bar chart size
 
-        ax_bar.bar(avg_grade_per_major_type['Major_type'], avg_grade_per_major_type['grade'], color='skyblue')
+        ax_bar.bar(avg_grade_per_major_type['Major_type'], avg_grade_per_major_type['Grade'], color='skyblue')
 
         ax_bar.set_xlabel("Major Type", fontsize=8)
         ax_bar.set_ylabel("Avg Grade", fontsize=8)
