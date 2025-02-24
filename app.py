@@ -48,8 +48,8 @@ st.dataframe(filtered_data)
 grade_trends = df.groupby('Year')['Grade'].mean()
 
 # Calculate Average Grade Per Major Type (For Bar Chart)
-if 'Major_type' in df.columns:
-    avg_grade_per_major_type = df.groupby(['Major_type'])['Grade'].mean().reset_index()
+if 'Major_Type' in df.columns:
+    avg_grade_per_major_type = df.groupby(['Major_Type'])['Grade'].mean().reset_index()
 else:
     avg_grade_per_major_type = None  # Handle missing data
 
@@ -81,7 +81,7 @@ with col_right:
     if avg_grade_per_major_type is not None:
         fig_bar, ax_bar = plt.subplots(figsize=(4, 3))  # Mini bar chart size
 
-        ax_bar.bar(avg_grade_per_major_type['Major_type'], avg_grade_per_major_type['Grade'], color='skyblue')
+        ax_bar.bar(avg_grade_per_major_type['Major_Type'], avg_grade_per_major_type['Grade'], color='skyblue')
 
         ax_bar.set_xlabel("Major Type", fontsize=8)
         ax_bar.set_ylabel("Avg Grade", fontsize=8)
