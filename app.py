@@ -83,7 +83,7 @@ with col_right:
 
         # Display as a table
         st.write("### 📊 Number of Unique Students per Department")
-        st.dataframe(student_counts)
+        #st.dataframe(student_counts)
 
         # Create a bar chart
         fig_students, ax_students = plt.subplots(figsize=(6, 4))  # Mini bar chart size
