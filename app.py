@@ -54,25 +54,16 @@ grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
 grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
 
 
-# Create Filters for Non-Numeric Columns
-st.sidebar.write("### 🔍 Filter Data")
-selected_department = st.sidebar.multiselect("Filter by Department", options=grouped_data['Department'].unique(), default=grouped_data['Department'].unique())
-selected_major_type = st.sidebar.multiselect("Filter by Major Type", options=grouped_data['Major_Type'].unique(), default=grouped_data['Major_Type'].unique())
-selected_major = st.sidebar.multiselect("Filter by Major", options=grouped_data['Major'].unique(), default=grouped_data['Major'].unique())
-selected_origin = st.sidebar.multiselect("Filter by Origin", options=grouped_data['Origin'].unique(), default=grouped_data['Origin'].unique())
-selected_gender = st.sidebar.multiselect("Filter by Gender", options=grouped_data['Gender'].unique(), default=grouped_data['Gender'].unique())
-
-# Apply Filters
-filtered_grouped_data = grouped_data[
-    (grouped_data['Department'].isin(selected_department)) &
-    (grouped_data['Major_Type'].isin(selected_major_type)) &
-    (grouped_data['Major'].isin(selected_major)) &
-    (grouped_data['Gender'].isin(selected_gender))
-]
-
-# Show Filtered & Grouped Data Table
-st.write("### Filtered & Grouped Data Table (One Row per Student)")
-st.dataframe(filtered_grouped_data)
+st.write("### Interactive Filtered & Grouped Data Table")
+filtered_grouped_data = st.data_editor(
+    grouped_data,
+    column_config={
+        "Department": st.column_config.Selectbox("Filter by Department", options=grouped_data['Department'].unique()),
+        "Major": st.column_config.Selectbox("Filter by Major", options=grouped_data['Major'].unique()),
+        "Gender": st.column_config.Selectbox("Filter by Gender", options=grouped_data['Gender'].unique()),
+    },
+    hide_index=True
+)
 
 
 # Calculate Grade Trends
