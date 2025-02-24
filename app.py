@@ -54,7 +54,7 @@ grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
 grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
 
 # Show Grouped Data Table
-st.write("### Filtered & Grouped Data Table (One Row per Student)")
+st.write("### Filtered & Grouped Data Table")
 st.dataframe(grouped_data)
 
 
