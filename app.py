@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 
+st.set_page_config(layout="wide")  # Expands the dashboard width
+
 
 @st.cache_data  # Cache to improve performance
 def load_data():
