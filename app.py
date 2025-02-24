@@ -6,7 +6,7 @@ import matplotlib.ticker as mticker
 
 @st.cache_data  # Cache to improve performance
 def load_data():
-    df = pd.read_excel("df_clean.xlsx")  # Or pd.read_excel("grades.xlsx")
+    df = pd.read_excel("df_clean.xlsx") 
     df['Year'] = (df['Semester'] // 10).astype(int)
     return df
 
