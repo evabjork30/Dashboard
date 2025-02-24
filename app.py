@@ -47,12 +47,6 @@ st.dataframe(filtered_data)
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
 
-# Calculate Average Grade Per Major Type (For Bar Chart)
-if 'Major_Type' in df.columns:
-    avg_grade_per_major_type = df.groupby(['Major_Type'])['Grade'].mean().reset_index()
-else:
-    avg_grade_per_major_type = None  # Handle missing data
-
 # Split the layout: First plot on the left, extra content on the right
 col_left, col_right = st.columns([1.5, 1])  # Adjust column widths
 
@@ -78,19 +72,31 @@ with col_right:
 
     st.write("Here you can see an overview of the key statistics related to grades.")
 
-    if avg_grade_per_major_type is not None:
-        fig_bar, ax_bar = plt.subplots(figsize=(4, 3))  # Mini bar chart size
+    # Ensure "student id" and "department" columns exist
+    if 'StudentID' in df.columns and 'Department' in df.columns:
+        # Remove duplicate student records (keeping only the first row per student)
+        unique_students = df.drop_duplicates(subset=['StudentID'])
 
-        ax_bar.bar(avg_grade_per_major_type['Major_Type'], avg_grade_per_major_type['Grade'], color='skyblue')
+        # Count number of unique students per department
+        student_counts = unique_students['Department'].value_counts().reset_index()
+        student_counts.columns = ['Department', 'Number of Students']
 
-        ax_bar.set_xlabel("Major Type", fontsize=8)
-        ax_bar.set_ylabel("Avg Grade", fontsize=8)
-        ax_bar.set_title("Avg Grade by Major Type", fontsize=10)
-        ax_bar.tick_params(axis='x', rotation=45, labelsize=8)  # Rotate labels for readability
+        # Display as a table
+        st.write("### 📊 Number of Unique Students per Department")
+        st.dataframe(student_counts)
 
-        st.pyplot(fig_bar)  # Display bar chart
+        # Create a bar chart
+        fig_students, ax_students = plt.subplots(figsize=(6, 4))  # Mini bar chart size
+        ax_students.bar(student_counts['Department'], student_counts['Number of Students'], color='lightcoral')
+
+        ax_students.set_xlabel("Department", fontsize=10)
+        ax_students.set_ylabel("Number of Students", fontsize=10)
+        ax_students.set_title("Unique Students per Department", fontsize=12)
+        ax_students.tick_params(axis='x', rotation=45, labelsize=8)  # Rotate labels for readability
+
+        st.pyplot(fig_students)  # Display the bar chart
     else:
-        st.warning("⚠️ 'Major Type' data not available.")
+        st.warning("⚠️ 'Student ID' or 'Department' column not found in dataset! Please check your data.")
 
 col1, col2 = st.columns(2)
 
