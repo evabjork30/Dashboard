@@ -89,21 +89,21 @@ st.pyplot(fig)
 # ------------------------------
 # Calculate Average Grade Per Major Type Over Time
 # ------------------------------
-avg_grade_per_major_type = df.groupby(['Year', 'Major Type'])['Grade'].mean().reset_index()
+avg_grade_per_major_type = df.groupby(['Year', 'Major_Type'])['Grade'].mean().reset_index()
 
 ## New plot
 
 st.write("### 📈 Average Grade Per Major Type Over Time")
 
 # Get unique major types
-major_types = avg_grade_per_major_type['Major Type'].unique()
+major_types = avg_grade_per_major_type['Major_Type'].unique()
 
 # Create the multi-line plot
 fig, ax = plt.subplots(figsize=(10, 5))
 
 for major_type in major_types:
     # Filter data for each major type
-    major_type_data = avg_grade_per_major_type[avg_grade_per_major_type['Major Type'] == major_type]
+    major_type_data = avg_grade_per_major_type[avg_grade_per_major_type['Major_Type'] == major_type]
 
     # Plot each major type as a separate line
     ax.plot(major_type_data['Year'], major_type_data['Grade'], marker='o', linestyle='-', label=major_type)
