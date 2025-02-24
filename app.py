@@ -91,8 +91,8 @@ with col_right:
 
         ax_students.set_xlabel("Department", fontsize=10)
         ax_students.set_ylabel("Number of Students", fontsize=10)
-        ax_students.set_title("Unique Students per Department", fontsize=12)
-        ax_students.tick_params(axis='x', rotation=45, labelsize=8)  # Rotate labels for readability
+        ax_students.set_title("Number of Students per Department", fontsize=12)
+        ax_students.tick_params(axis='x', rotation=60, labelsize=8)  # Rotate labels for readability
 
         st.pyplot(fig_students)  # Display the bar chart
     else:
