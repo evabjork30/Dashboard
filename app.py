@@ -86,3 +86,37 @@ ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer 
 
 st.pyplot(fig)
 
+# ------------------------------
+# Calculate Average Grade Per Major Type Over Time
+# ------------------------------
+avg_grade_per_major_type = df.groupby(['Year', 'Major Type'])['Grade'].mean().reset_index()
+
+## New plot
+
+st.write("### 📈 Average Grade Per Major Type Over Time")
+
+# Get unique major types
+major_types = avg_grade_per_major_type['Major Type'].unique()
+
+# Create the multi-line plot
+fig, ax = plt.subplots(figsize=(10, 5))
+
+for major_type in major_types:
+    # Filter data for each major type
+    major_type_data = avg_grade_per_major_type[avg_grade_per_major_type['Major Type'] == major_type]
+
+    # Plot each major type as a separate line
+    ax.plot(major_type_data['Year'], major_type_data['Grade'], marker='o', linestyle='-', label=major_type)
+
+# Customize the plot
+ax.set_xlabel("Year", fontsize=12)
+ax.set_ylabel("Average Grade", fontsize=12)
+ax.set_title("Average Grade Trend Per Major Type", fontsize=14, weight='bold')
+ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
+
+# Add legend
+ax.legend(title="Major Type")
+
+# Display in Streamlit
+st.pyplot(fig)
+
