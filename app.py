@@ -50,7 +50,7 @@ grade_trends = df.groupby('Year')['Grade'].mean()
 # Calculate Average Grade Per Major Type (For Bar Chart)
 df.columns = df.columns.str.strip().str.lower()  # Standardize column names
 if 'Major_type' in df.columns:
-    avg_grade_per_major_type = df.groupby('Major_type')['Grade'].mean().reset_index()
+    avg_grade_per_major_type = df.groupby(['Major_type'])['Grade'].mean().reset_index()
 else:
     avg_grade_per_major_type = None  # Handle missing data
 
@@ -67,6 +67,7 @@ with col_left:
     ax.set_ylabel("Average Grade", fontsize=10)
     ax.set_title("Trend of Average Grades", fontsize=12, weight='bold')
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
     st.pyplot(fig)  # Display the smaller plot
 
