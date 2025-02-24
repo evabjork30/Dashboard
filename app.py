@@ -42,7 +42,7 @@ grouped_data = filtered_data.groupby('StudentID').agg(
     Major_Type=('Major_Type', 'first'),
     Major=('Major', 'first'),
     Number_of_Semesters=('Semester', 'count'),  # Count number of semesters per student
-    Total_Credits=('Credits', 'sum'),  # Calculate average credits per student
+    Total_Credits=('Credits', 'sum'),  # Calculate total credits per student
     Average_Grade=('Grade', 'mean')  # Calculate average grade per student
 ).reset_index()
 
