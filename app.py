@@ -48,11 +48,11 @@ st.dataframe(filtered_data)
 grade_trends = df.groupby('Year')['Grade'].mean()
 
 # Create a Matplotlib Plot
-fig, ax = plt.subplots(figsize=(5, 2))
+fig, ax = plt.subplots(figsize=(6, 3))
 ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
-ax.set_xlabel('Year', fontsize=12.5)
-ax.set_ylabel('Average Grade', fontsize=12.5)
-ax.set_title('Trend of Average Grades', fontsize=15, weight='bold')
+ax.set_xlabel('Year', fontsize=9)
+ax.set_ylabel('Average Grade', fontsize=9)
+ax.set_title('Trend of Average Grades', fontsize=10, weight='bold')
 ax.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35)
 ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
