@@ -28,8 +28,8 @@ year_range = st.slider("Select Year Range:",
 filtered_data = df[(df['Year'] >= year_range[0]) & (df['Year'] <= year_range[1])]
 
 filtered_data['RegistrationYear'] = filtered_data['RegistrationYear'].map(lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
-#filtered_data['StudentID'] = filtered_data['StudentID'].map(
-#    lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
+filtered_data['StudentID'] = filtered_data['StudentID'].map(
+    lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 #filtered_data['BirthYear'] = filtered_data['BirthYear'].map(
 #    lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 filtered_data['Year'] = filtered_data['Year'].map(
