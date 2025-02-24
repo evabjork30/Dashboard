@@ -18,7 +18,7 @@ df = load_data()  # ✅ Load the dataset properly
 # ------------------------------
 # Streamlit App
 # ------------------------------
-st.title("📊 Grade Inflation Analysis")
+st.title("📊 Grade Inflation Analysis - Reykjavík University")
 st.write("This dashboard tracks **grade inflation** by analyzing the trend of average grades per year.")
 
 # Add Filters
@@ -47,18 +47,29 @@ st.dataframe(filtered_data)
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
 
-with st.container():
-    # Create a Matplotlib Plot
-    fig, ax = plt.subplots(figsize=(6, 3))
-    ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
-    ax.set_xlabel('Year', fontsize=9)
-    ax.set_ylabel('Average Grade', fontsize=9)
-    ax.set_title('Trend of Average Grades', fontsize=10, weight='bold')
-    ax.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35)
-    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
+# Split the layout: First plot on the left, extra content on the right
+col_left, col_right = st.columns([1.5, 1])  # Adjust column widths
 
-    # Display in Streamlit
-    st.pyplot(fig)
+with col_left:
+    st.write("### 📊 Trend of Average Grades")
+
+    # Create a smaller figure for the trend plot
+    fig, ax = plt.subplots(figsize=(10, 5))  # Reduce plot size
+    ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
+    ax.set_xlabel("Year", fontsize=10)
+    ax.set_ylabel("Average Grade", fontsize=10)
+    ax.set_title("Trend of Average Grades", fontsize=12, weight='bold')
+    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
+
+    st.pyplot(fig)  # Display the smaller plot
+
+with col_right:
+    st.write("### 📊 Key Statistics")
+    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
+    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
+    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
+
+    st.write("Here you can see an overview of the key statistics related to grades.")
 
 col1, col2 = st.columns(2)
 
