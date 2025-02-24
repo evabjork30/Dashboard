@@ -36,8 +36,13 @@ filtered_data = filtered_data.drop(columns=['MajorID', 'Reg_Status', 'reg_birth_
 grouped_data = filtered_data.groupby('StudentID').agg(
     RegistrationYear=('RegistrationYear', 'first'),  # Keep the first Registration Year
     BirthYear=('BirthYear', 'first'),  # Keep the first Birth Year
+    Gender=('Gender', 'first'),
+    Origin=('Origin', 'first'),
+    Department=('Department', 'first'),
+    Major_Type=('Major_Type', 'first'),
+    Major=('Major', 'first'),
     Number_of_Semesters=('Semester', 'count'),  # Count number of semesters per student
-    Average_Credits=('Credits', 'mean'),  # Calculate average credits per student
+    Total_Credits=('Credits', 'sum'),  # Calculate average credits per student
     Average_Grade=('Grade', 'mean')  # Calculate average grade per student
 ).reset_index()
 
