@@ -51,6 +51,8 @@ grouped_data['StudentID'] = grouped_data['StudentID'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
+grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
+
 
 # Show Filtered Data
 st.write("### Filtered Data Table")
