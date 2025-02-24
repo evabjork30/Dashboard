@@ -46,8 +46,6 @@ grouped_data['StudentID'] = grouped_data['StudentID'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
-grouped_data['Year'] = grouped_data['Year'].map(
-    lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 grouped_data['Semester'] = grouped_data['Semester'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 
