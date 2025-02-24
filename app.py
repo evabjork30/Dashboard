@@ -58,7 +58,6 @@ with col_left:
     ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
     ax.set_xlabel("Year", fontsize=10)
     ax.set_ylabel("Average Grade", fontsize=10)
-    ax.set_title("Trend of Average Grades", fontsize=12, weight='bold')
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
@@ -82,7 +81,7 @@ with col_right:
         student_counts.columns = ['Department', 'Number of Students']
 
         # Display as a table
-        st.write("### 📊 Number of Unique Students per Department")
+        st.write("### 📊 Number of Students per Department")
         #st.dataframe(student_counts)
 
         # Create a bar chart
@@ -91,7 +90,6 @@ with col_right:
 
         ax_students.set_xlabel("Department", fontsize=10)
         ax_students.set_ylabel("Number of Students", fontsize=10)
-        ax_students.set_title("Number of Students per Department", fontsize=12)
         ax_students.tick_params(axis='x', rotation=60, labelsize=8)  # Rotate labels for readability
         ax_students.set_xticklabels([label.replace(" ", "\n") for label in student_counts['Department']])
         ax_students.set_xticklabels(student_counts['Department'], rotation=45, ha="right", fontsize=8)
@@ -126,7 +124,6 @@ with col1:
 
     ax.set_xlabel("Year", fontsize=12)
     ax.set_ylabel("Average Grade", fontsize=12)
-    #ax.set_title(f"Average Grade Trend for {selected_department}", fontsize=14, weight='bold')
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
@@ -159,7 +156,6 @@ with col2:
     # Customize the plot
     ax.set_xlabel("Year", fontsize=12)
     ax.set_ylabel("Average Grade", fontsize=12)
-    #ax.set_title("Average Grade Trend Per Major Type", fontsize=14, weight='bold')
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
