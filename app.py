@@ -48,7 +48,6 @@ st.dataframe(filtered_data)
 grade_trends = df.groupby('Year')['Grade'].mean()
 
 # Calculate Average Grade Per Major Type (For Bar Chart)
-df.columns = df.columns.str.strip().str.lower()  # Standardize column names
 if 'Major_type' in df.columns:
     avg_grade_per_major_type = df.groupby(['Major_type'])['Grade'].mean().reset_index()
 else:
