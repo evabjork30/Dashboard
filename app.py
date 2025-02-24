@@ -53,9 +53,6 @@ grouped_data['BirthYear'] = grouped_data['BirthYear'].map(
     lambda x: f"{x:.0f}" if x == int(x) else f"{x:.2f}")
 grouped_data['Average_Grade'] = grouped_data['Average_Grade'].round(2)
 
-# Show Grouped Data Table
-#st.write("### Filtered & Grouped Data Table")
-#st.dataframe(grouped_data)
 
 # ------------------------------
 # 📌 Add Dynamic Filters in Sidebar
@@ -85,7 +82,7 @@ filtered_grouped_data = grouped_data[
 # ------------------------------
 # 📌 Display the Dynamically Filtered Table
 # ------------------------------
-st.write("### Dynamically Filtered Data Table")
+st.write("### Filtered and Grouped data table")
 st.dataframe(filtered_grouped_data, height=400, width=1000)
 
 
