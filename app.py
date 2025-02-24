@@ -83,7 +83,7 @@ with col1:
 
     ax.set_xlabel("Year", fontsize=12)
     ax.set_ylabel("Average Grade", fontsize=12)
-    ax.set_title(f"Average Grade Trend for {selected_department}", fontsize=14, weight='bold')
+    #ax.set_title(f"Average Grade Trend for {selected_department}", fontsize=14, weight='bold')
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
@@ -116,7 +116,7 @@ with col2:
     # Customize the plot
     ax.set_xlabel("Year", fontsize=12)
     ax.set_ylabel("Average Grade", fontsize=12)
-    ax.set_title("Average Grade Trend Per Major Type", fontsize=14, weight='bold')
+    #ax.set_title("Average Grade Trend Per Major Type", fontsize=14, weight='bold')
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
