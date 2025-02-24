@@ -60,10 +60,7 @@ st.pyplot(fig)
 # Compute average grade per department over time
 avg_grade_per_department = df.groupby(['Year', 'Department'])['Grade'].mean().reset_index()
 
-# ------------------------------
-# Streamlit App
-# ------------------------------
-st.title("📊 Grade Inflation Dashboard")
+## New plot
 
 st.write("### 📈 Average Grade Per Department Program Over Time")
 
