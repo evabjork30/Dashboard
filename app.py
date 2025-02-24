@@ -45,20 +45,21 @@ st.dataframe(filtered_data)
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
 
+# Create a Matplotlib Plot
+fig, ax = plt.subplots(figsize=(10, 5))
+ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
+ax.set_xlabel('Year', fontsize=12.5)
+ax.set_ylabel('Average Grade', fontsize=12.5)
+ax.set_title('Trend of Average Grades', fontsize=15, weight='bold')
+ax.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35)
+ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
+
+# Display in Streamlit
+st.pyplot(fig)
+
 col1, col2 = st.columns(2)
 
 with col1:
-    # Create a Matplotlib Plot
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
-    ax.set_xlabel('Year', fontsize=12.5)
-    ax.set_ylabel('Average Grade', fontsize=12.5)
-    ax.set_title('Trend of Average Grades', fontsize=15, weight='bold')
-    ax.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35)
-    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
-
-    # Display in Streamlit
-    st.pyplot(fig)
 
     # Compute average grade per department over time
     avg_grade_per_department = df.groupby(['Year', 'Department'])['Grade'].mean().reset_index()
