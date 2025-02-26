@@ -106,8 +106,6 @@ st.write("")  # Add another blank line
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
 
-
-
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
 
@@ -153,6 +151,11 @@ with col_right:
 
     st.write("Here you can see an overview of the key statistics related to grades.")
 
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+
 col5, col6 = st.columns(2)
 
 with col5:
@@ -174,6 +177,10 @@ with col6:
 
     st.write("Here you can see an overview of the key statistics related to grades.")
 
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
 
 col1, col2 = st.columns(2)
 
@@ -207,6 +214,12 @@ with col1:
 with col2:
 
     print("📈")
+
+
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
 
 col3, col4 = st.columns(2)
 
@@ -249,6 +262,11 @@ with col4:
 
     # Display in Streamlit
     st.pyplot(fig)
+
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
 
 col7, col8 = st.columns(2)
 
