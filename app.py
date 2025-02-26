@@ -279,6 +279,7 @@ st.write("")  # Add another blank line
 col7, col8 = st.columns(2)
 
 with col7:
+    st.write("### 📈 Grade Distribution by Gender")
     # Filter dataset for relevant genders
     filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]
 
@@ -287,7 +288,6 @@ with col7:
     sns.boxplot(x='Gender', y='Grade', data=filtered_df, palette=['green', 'yellow'], ax=ax)
 
     # Customize plot appearance
-    ax.set_title('Grade Distribution by Gender', fontsize=15, weight='bold')
     ax.set_xlabel('Gender', fontsize=12.5)
     ax.set_ylabel('Grade', fontsize=12.5)
     ax.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35, axis='y')
