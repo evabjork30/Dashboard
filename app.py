@@ -160,6 +160,14 @@ st.write("")  # Add another blank line
 col5, col6 = st.columns(2)
 
 with col5:
+    st.write("### 📊 Key Statistics")
+    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
+    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
+    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
+
+    st.write("Here you can see an overview of the key statistics related to grades.")
+
+with col6:
     st.write("### 📊 Trend of Average Grades")
     # Create a smaller figure for the trend plot
     fig, ax = plt.subplots(figsize=(10, 5))  # Reduce plot size
@@ -170,14 +178,6 @@ with col5:
     ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
 
     st.pyplot(fig)  # Display the smaller plot
-
-with col6:
-    st.write("### 📊 Key Statistics")
-    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
-    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
-    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
-
-    st.write("Here you can see an overview of the key statistics related to grades.")
 
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
