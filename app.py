@@ -131,8 +131,8 @@ with col_left:
         fig_students, ax_students = plt.subplots(figsize=(6, 3))  # Mini bar chart size
         ax_students.bar(student_counts['Department'], student_counts['Number of Students'], color='lightcoral')
 
-        ax_students.set_xlabel("Department", fontsize=10)
-        ax_students.set_ylabel("Number of Students", fontsize=10)
+        #ax_students.set_xlabel("Department", fontsize=10)
+        #ax_students.set_ylabel("Number of Students", fontsize=10)
         ax_students.tick_params(axis='x', rotation=60, labelsize=8)  # Rotate labels for readability
         ax_students.set_xticklabels([label.replace(" ", "\n") for label in student_counts['Department']])
         ax_students.set_xticklabels(student_counts['Department'], rotation=45, ha="right", fontsize=8)
