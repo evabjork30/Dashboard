@@ -335,7 +335,6 @@ if selected_departments:
         ax.plot(department_data['Year'], department_data['Grade'], marker='o', linestyle='-', label=department)
 
     # Customize the plot
-    ax.set_title("Average Grade Per Department (2019-2022)", fontsize=14, weight='bold')
     ax.set_xlabel("Year", fontsize=12)
     ax.set_ylabel("Average Grade", fontsize=12)
     ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
