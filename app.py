@@ -172,15 +172,13 @@ with col1:
 
 with col2:
 
-    fig=print("📈")
-    st.pyplot(fig)
+    print("📈")
 
 col3, col4 = st.columns(2)
 
 with col3:
 
-    fig = print("📈")
-    st.pyplot(fig)
+    print("📈")
 
 with col4:
 
