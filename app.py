@@ -128,7 +128,7 @@ with col_left:
         st.write("### 📊 Number of Students per Department")
 
         # Create a bar chart
-        fig_students, ax_students = plt.subplots(figsize=(6, 4))  # Mini bar chart size
+        fig_students, ax_students = plt.subplots(figsize=(4, 2))  # Mini bar chart size
         ax_students.bar(student_counts['Department'], student_counts['Number of Students'], color='lightcoral')
 
         ax_students.set_xlabel("Department", fontsize=10)
