@@ -107,26 +107,6 @@ grade_trends = df.groupby('Year')['Grade'].mean()
 col_left, col_right = st.columns([1.5, 1])  # Adjust column widths
 
 with col_left:
-    st.write("### 📊 Trend of Average Grades")
-
-    # Create a smaller figure for the trend plot
-    fig, ax = plt.subplots(figsize=(10, 5))  # Reduce plot size
-    ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
-    ax.set_xlabel("Year", fontsize=10)
-    ax.set_ylabel("Average Grade", fontsize=10)
-    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
-    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
-
-    st.pyplot(fig)  # Display the smaller plot
-
-with col_right:
-    st.write("### 📊 Key Statistics")
-    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
-    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
-    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
-
-    st.write("Here you can see an overview of the key statistics related to grades.")
-
     # Ensure "student id" and "department" columns exist
     if 'StudentID' in df.columns and 'Department' in df.columns:
         # Remove duplicate student records (keeping only the first row per student)
@@ -154,6 +134,38 @@ with col_right:
         st.pyplot(fig_students)  # Display the bar chart
     else:
         st.warning("⚠️ 'Student ID' or 'Department' column not found in dataset! Please check your data.")
+
+    st.write("### 📊 Trend of Average Grades")
+
+with col_right:
+    st.write("### 📊 Key Statistics")
+    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
+    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
+    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
+
+    st.write("Here you can see an overview of the key statistics related to grades.")
+
+col5, col6 = st.columns(2)
+
+with col5:
+    # Create a smaller figure for the trend plot
+    fig, ax = plt.subplots(figsize=(10, 5))  # Reduce plot size
+    ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
+    ax.set_xlabel("Year", fontsize=10)
+    ax.set_ylabel("Average Grade", fontsize=10)
+    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Forces integer labels
+
+    st.pyplot(fig)  # Display the smaller plot
+
+with col6:
+    st.write("### 📊 Key Statistics")
+    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
+    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
+    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
+
+    st.write("Here you can see an overview of the key statistics related to grades.")
+
 
 col1, col2 = st.columns(2)
 
