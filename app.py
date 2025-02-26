@@ -216,7 +216,7 @@ with col1:
     st.pyplot(fig)
 
 with col2:
-
+    st.write("### 📊 Key Statistics")
     st.write("Here you can see an overview of the key statistics related to grades.")
 
 
@@ -230,6 +230,7 @@ st.write("")  # Add another blank line
 col3, col4 = st.columns(2)
 
 with col3:
+    st.write("### 📊 Key Statistics")
     st.write("Here you can see an overview of the key statistics related to grades.")
 
 with col4:
