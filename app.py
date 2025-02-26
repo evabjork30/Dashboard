@@ -143,7 +143,6 @@ with col_left:
     else:
         st.warning("⚠️ 'Student ID' or 'Department' column not found in dataset! Please check your data.")
 
-    st.write("### 📊 Trend of Average Grades")
 
 with col_right:
     st.write("### 📊 Key Statistics")
@@ -163,6 +162,7 @@ st.write("")  # Add another blank line
 col5, col6 = st.columns(2)
 
 with col5:
+    st.write("### 📊 Trend of Average Grades")
     # Create a smaller figure for the trend plot
     fig, ax = plt.subplots(figsize=(10, 5))  # Reduce plot size
     ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
