@@ -23,7 +23,7 @@ col1, col2 = st.columns([3, 1])  # Adjust ratio to balance text & image
 
 with col1:
     st.title("Grade Inflation Analysis")
-    st.write("Reykjavík University")
+    st.markdown("<h3>Reykjavík University</h3>", unsafe_allow_html=True)
 
 with col2:
     st.image(logo_path, width=200)  # Adjust width as needed
