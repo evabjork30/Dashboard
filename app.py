@@ -15,10 +15,23 @@ def load_data():
 
 df = load_data()  # ✅ Load the dataset properly
 
+# Load the logo (Make sure the image is in the same folder OR use a URL)
+logo_path = "HR_logo.jpeg"  # Local file
+
+# Create two columns for title & logo
+col1, col2 = st.columns([3, 1])  # Adjust ratio to balance text & image
+
+with col1:
+    st.title("📊 Grade Inflation Analysis - Reykjavík University")
+
+with col2:
+    st.image(logo_path, width=120)  # Adjust width as needed
+
+
 # ------------------------------
 # Streamlit App
 # ------------------------------
-st.title("📊 Grade Inflation Analysis - Reykjavík University")
+#st.title("📊 Grade Inflation Analysis - Reykjavík University")
 st.write("This dashboard tracks **grade inflation** by analyzing the trend of average grades per year.")
 
 # Add Filters
