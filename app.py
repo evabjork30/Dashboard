@@ -172,6 +172,18 @@ with col1:
 
 with col2:
 
+    fig=print("📈")
+    st.pyplot(fig)
+
+col3, col4 = st.columns(2)
+
+with col3:
+
+    fig = print("📈")
+    st.pyplot(fig)
+
+with col4:
+
     # ------------------------------
     # Calculate Average Grade Per Major Type Over Time
     # ------------------------------
