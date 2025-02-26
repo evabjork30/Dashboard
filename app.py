@@ -253,20 +253,23 @@ with col4:
 col7, col8 = st.columns(2)
 
 with col7:
-    import matplotlib.pyplot as plt
-
+    # Filter dataset for relevant genders
     filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]
-    plt.figure(figsize=(10, 8))
-    sns.boxplot(x='Gender', y='Grade', data=filtered_df, palette=['lightblue', 'lightpink'])
 
-    plt.title('Grade Distribution by Gender', fontsize=15, weight='bold')
-    plt.xlabel('Gender', fontsize=12.5)
-    plt.ylabel('Grade', fontsize=12.5)
-    plt.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35, axis='y')
-    plt.tight_layout()
-    plt.show()
+    # Create the box plot
+    fig, ax = plt.subplots(figsize=(10, 6))  # Keep consistent sizing
+    sns.boxplot(x='Gender', y='Grade', data=filtered_df, palette=['lightblue', 'lightpink'], ax=ax)
 
-    print(filtered_df.groupby('Gender')['Grade'].describe())
+    # Customize plot appearance
+    ax.set_title('Grade Distribution by Gender', fontsize=15, weight='bold')
+    ax.set_xlabel('Gender', fontsize=12.5)
+    ax.set_ylabel('Grade', fontsize=12.5)
+    ax.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35, axis='y')
+
+    # Display the plot in Streamlit
+    st.pyplot(fig)
 
 with col8:
-    print("hæ")
+    st.write("### 📊 Gender-Based Statistics")
+    gender_stats = filtered_df.groupby('Gender')['Grade'].describe()
+    st.dataframe(gender_stats)  # Display summary statistics in a table
