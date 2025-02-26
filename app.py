@@ -258,7 +258,7 @@ with col7:
 
     # Create the box plot
     fig, ax = plt.subplots(figsize=(10, 6))  # Keep consistent sizing
-    sns.boxplot(x='Gender', y='Grade', data=filtered_df, palette=['lightblue', 'lightpink'], ax=ax)
+    sns.boxplot(x='Gender', y='Grade', data=filtered_df, palette=['green', 'yellow'], ax=ax)
 
     # Customize plot appearance
     ax.set_title('Grade Distribution by Gender', fontsize=15, weight='bold')
