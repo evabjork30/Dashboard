@@ -99,6 +99,12 @@ filtered_grouped_data = grouped_data[
 st.write("### Filtered and Grouped Data Table")
 st.dataframe(filtered_grouped_data, height=400, width=1500)
 
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+
+
 
 # Calculate Grade Trends
 grade_trends = df.groupby('Year')['Grade'].mean()
