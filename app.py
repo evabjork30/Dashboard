@@ -22,7 +22,8 @@ logo_path = "HR_logo.jpeg"  # Local file
 col1, col2 = st.columns([3, 1])  # Adjust ratio to balance text & image
 
 with col1:
-    st.title("Grade Inflation Analysis - Reykjavík University")
+    st.title("Grade Inflation Analysis")
+    st.write("Reykjavík University")
 
 with col2:
     st.image(logo_path, width=200)  # Adjust width as needed
