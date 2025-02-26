@@ -97,7 +97,7 @@ filtered_grouped_data = grouped_data[
 # 📌 Display the Dynamically Filtered Table
 # ------------------------------
 st.write("### Filtered and Grouped Data Table")
-st.dataframe(filtered_grouped_data, height=400, width=1000)
+st.dataframe(filtered_grouped_data, height=400, width=1500)
 
 
 # Calculate Grade Trends
