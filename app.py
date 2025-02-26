@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+import seaborn as sns
+
 
 st.set_page_config(layout="wide")  # Expands the dashboard width
 
@@ -248,3 +250,23 @@ with col4:
     # Display in Streamlit
     st.pyplot(fig)
 
+col7, col8 = st.columns(2)
+
+with col7:
+    import matplotlib.pyplot as plt
+
+    filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]
+    plt.figure(figsize=(10, 8))
+    sns.boxplot(x='Gender', y='Grade', data=filtered_df, palette=['lightblue', 'lightpink'])
+
+    plt.title('Grade Distribution by Gender', fontsize=15, weight='bold')
+    plt.xlabel('Gender', fontsize=12.5)
+    plt.ylabel('Grade', fontsize=12.5)
+    plt.grid(True, linestyle='--', linewidth=0.5, color='gray', alpha=0.35, axis='y')
+    plt.tight_layout()
+    plt.show()
+
+    print(filtered_df.groupby('Gender')['Grade'].describe())
+
+with col8:
+    print("hæ")
