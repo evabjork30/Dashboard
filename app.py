@@ -299,3 +299,47 @@ with col8:
     st.write("### 📊 Gender-Based Statistics")
     gender_stats = filtered_df.groupby('Gender')['Grade'].describe()
     st.dataframe(gender_stats)  # Display summary statistics in a table
+
+
+
+# ------------------------------
+# 📌 COVID Time: Compare Average Grades Per Department (2019-2022)
+# ------------------------------
+st.write("### 📈 Compare Average Grades Per Department (2019-2022)")
+
+# Filter data for COVID years
+covid_df = df[(df['Year'] >= 2019) & (df['Year'] <= 2022)]
+
+# Compute average grade per department over time
+covid_avg_grade = covid_df.groupby(['Year', 'Department'])['Grade'].mean().reset_index()
+
+# Multi-select dropdown to choose multiple departments
+departments = covid_avg_grade['Department'].unique()
+selected_departments = st.multiselect(
+    "Select Departments to Compare:", departments, default=departments[:3]  # Pre-select first 3 departments
+)
+
+# Ensure at least one department is selected
+if selected_departments:
+    # Create the multi-line plot
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    # Loop through selected departments and plot each one
+    for department in selected_departments:
+        department_data = covid_avg_grade[covid_avg_grade['Department'] == department]
+        ax.plot(department_data['Year'], department_data['Grade'], marker='o', linestyle='-', label=department)
+
+    # Customize the plot
+    ax.set_title("Average Grade Per Department (2019-2022)", fontsize=14, weight='bold')
+    ax.set_xlabel("Year", fontsize=12)
+    ax.set_ylabel("Average Grade", fontsize=12)
+    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
+    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Force integer labels
+
+    # Add a legend
+    ax.legend(title="Department", bbox_to_anchor=(1.05, 1), loc='upper left')  # Moves legend outside for better visibility
+
+    # Display in Streamlit
+    st.pyplot(fig)
+else:
+    st.warning("⚠ Please select at least one department to display the comparison.")
