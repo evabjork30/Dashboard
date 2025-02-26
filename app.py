@@ -300,7 +300,12 @@ with col8:
     gender_stats = filtered_df.groupby('Gender')['Grade'].describe()
     st.dataframe(gender_stats)  # Display summary statistics in a table
 
-
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
 
 # ------------------------------
 # 📌 COVID Time: Compare Average Grades Per Department (2019-2022)
