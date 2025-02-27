@@ -318,7 +318,7 @@ with col3:
         "Rank in Avg Grade": rank_per_major.astype(int)
     })
 
-    st.write(table_data)
+    st.dataframe(table_data)
 
 with col4:
 
@@ -384,8 +384,26 @@ with col7:
 
 with col8:
     st.write("### 📊 Gender-Based Statistics")
-    gender_stats = filtered_df.groupby('Gender')['Grade'].describe()
-    st.dataframe(gender_stats)  # Display summary statistics in a table
+    filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]  # Exclude 'Kynsegin/annað'
+    gender_stats = filtered_df.groupby('Gender')['Grade'].describe().round(2)
+
+    # Rename columns for better readability
+    gender_stats.rename(columns={
+        "count": "Number of Students",
+        "mean": "Mean Grade",
+        "std": "Std Dev (Variation)",
+        "25%": "25th Percentile (Q1)",
+        "50%": "Median Grade",
+        "75%": "75th Percentile (Q3)",
+    }, inplace=True)
+
+    gender_table_data = gender_stats[
+        ["Mean Grade", "Median Grade", "Std Dev (Variation)", "25th Percentile (Q1)", "75th Percentile (Q3)",
+         "Number of Students"]]
+    gender_table_data_transposed = gender_table_data.T
+    gender_table_data_transposed.head()
+
+    st.dataframe(gender_table_data_transposed)
 
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
