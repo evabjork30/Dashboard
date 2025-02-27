@@ -184,12 +184,13 @@ col5, col6 = st.columns(2)
 with col5:
     st.write("### 📊 Key Statistics")
     overall_avg_grade = df['Grade'].mean()
+    min_avg_grade = df.groupby('Year')['Grade'].mean().min()
+    min_avg_year = df.groupby('Year')['Grade'].mean().idxmin()
 
     st.metric("Overall avg grade", round(overall_avg_grade, 2))
 
-    min_avg_grade = df.groupby('Year')['Grade'].mean().min()
-    min_avg_year = df.groupby('Year')['Grade'].mean().idxmin()
-    print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
+    #print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
+    st.metric("Lowest avg grade", round(min_avg_grade, 2), min_avg_year)
 
     max_avg_grade = df.groupby('Year')['Grade'].mean().max()
     max_avg_year = df.groupby('Year')['Grade'].mean().idxmax()
