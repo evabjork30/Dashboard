@@ -403,7 +403,7 @@ with col8:
     gender_table_data_transposed = gender_table_data.T
     gender_table_data_transposed.head()
 
-    st.dataframe(gender_table_data_transposed)
+    st.dataframe(gender_table_data)
 
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
