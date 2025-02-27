@@ -275,7 +275,7 @@ with col2:
 
     dept_rank = df.groupby('Department')['Grade'].mean() #.rank(ascending=False)
     #print(f'Department rank in avg grade: {dept_rank}')
-    st.metric("Department rank in avg grade", dept_rank)
+    #st.metric("Department rank in avg grade", dept_rank)
 
     avg_students_per_year_d = df[df['Department'] == selected_department].groupby('Year')['StudentID'].nunique().mean()
     #print(f'Avg students per year: {avg_students_per_year_d}')
@@ -293,7 +293,30 @@ col3, col4 = st.columns(2)
 
 with col3:
     st.write("### 📊 Key Statistics")
-    st.write("Here you can see an overview of the key statistics related to grades.")
+    latest_year = df['Year'].max()
+    total_students = df['StudentID'].nunique()
+    students_per_major = df.groupby('Major_Type')['StudentID'].nunique()
+    percentage_students_per_major = (students_per_major / total_students) * 100
+
+    latest_avg_grade_per_major = df[df['Year'] == latest_year].groupby('Major_Type')['Grade'].mean()
+    min_avg_grade_per_major = df.groupby(['Major_Type', 'Year'])['Grade'].mean().groupby(level=0).min()
+    min_avg_year_per_major = df.groupby(['Major_Type', 'Year'])['Grade'].mean().groupby(level=0).idxmin()
+    max_avg_grade_per_major = df.groupby(['Major_Type', 'Year'])['Grade'].mean().groupby(level=0).max()
+    max_avg_year_per_major = df.groupby(['Major_Type', 'Year'])['Grade'].mean().groupby(level=0).idxmax()
+    avg_yearly_change_per_major = df.groupby(['Major_Type', 'Year'])['Grade'].mean().groupby(
+        level=0).pct_change().groupby(level=0).mean() * 100
+    rank_per_major = df.groupby('Major_Type')['Grade'].mean().rank(ascending=False)
+
+    table_data = pd.DataFrame({
+        "Latest Avg Grade": latest_avg_grade_per_major.round(2),
+        "Lowest Avg Grade (Year)": [f"{min_avg_grade_per_major[i]:.2f} ({min_avg_year_per_major[i][1]})" for i in
+                                    min_avg_grade_per_major.index],
+        "Highest Avg Grade (Year)": [f"{max_avg_grade_per_major[i]:.2f} ({max_avg_year_per_major[i][1]})" for i in
+                                     max_avg_grade_per_major.index],
+        "Avg Yearly Change (%)": avg_yearly_change_per_major.round(2),
+        "% of Total Students": percentage_students_per_major.round(2).astype(str) + "%",
+        "Rank in Avg Grade": rank_per_major.astype(int)
+    })
 
 with col4:
 
