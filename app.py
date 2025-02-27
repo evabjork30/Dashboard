@@ -150,7 +150,7 @@ with col_right:
 
     # Total number of students
     total_students = df['StudentID'].nunique()
-    st.write(f'Total students: {total_students}')
+    st.metric(f'Total students: {total_students}')
 
     # Largest department
     largest_department_count = df.groupby('Department')['StudentID'].nunique().max()
