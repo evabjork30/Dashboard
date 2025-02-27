@@ -163,7 +163,7 @@ with col_right:
     st.metric(largest_department, largest_department_count)
 
     # Smallest department
-    st.write(f'Smallest department: {smallest_department} ({smallest_department_count})')
+    st.metric(smallest_department, smallest_department_count)
 
     #
     st.write(f'% of students in the largest department: {round(largest_dept_percentage, 2)}')
