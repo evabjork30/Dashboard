@@ -171,10 +171,10 @@ with col_right:
 
     with sub_col2:
         # % of students in largest department
-        st.metric("% of students in largest department", round(largest_dept_percentage, 2))
+        st.metric("% of students in largest department", f"{round(largest_dept_percentage, 2)}%", delta=f"{round(largest_dept_percentage, 2)}%")
 
         # Average students per department
-        st.metric("Average students per department", round(avg_students_per_dept, 2))
+        st.metric("Average students per department", round(avg_students_per_dept))
 
 
 st.write("")  # Add one blank line
