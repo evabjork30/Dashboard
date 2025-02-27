@@ -149,12 +149,11 @@ with col_right:
     #st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
 
     # Total number of students
-    total_students = df['StudentID'].nunique()
     st.metric("Total students: ", df['StudentID'].nunique())
 
     # Largest department
     largest_department_count = df.groupby('Department')['StudentID'].nunique().max()
-    st.write(f'Largest department: Viðskipta- og hagfræðideild ({largest_department_count})')
+    st.metric("Largest department: Viðskipta- og hagfræðideild", df.groupby('Department')['StudentID'].nunique().max())
 
     # Smallest department
     smallest_department = df.groupby('Department')['StudentID'].nunique().idxmin()
