@@ -292,7 +292,7 @@ with col2:
         st.warning("⚠️ Selected department not found in ranking.")
 
     avg_students_per_year_d = df[df['Department'] == selected_department].groupby('Year')['StudentID'].nunique().mean()
-    st.metric("Avg students per year:", avg_students_per_year_d)
+    st.metric("Avg students per year:", round(avg_students_per_year_d))
 
 
 st.write("")  # Add one blank line
