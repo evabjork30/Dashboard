@@ -150,22 +150,22 @@ with col_right:
 
     # Total number of students
     total_students = df['StudentID'].nunique()
-    print(f'Total students: {total_students}')
+    st.write(f'Total students: {total_students}')
 
     # Largest department
     largest_department_count = df.groupby('Department')['StudentID'].nunique().max()
-    print(f'Largest department: Viðskipta- og hagfræðideild ({largest_department_count})')
+    st.write(f'Largest department: Viðskipta- og hagfræðideild ({largest_department_count})')
 
     # Smallest department
     smallest_department = df.groupby('Department')['StudentID'].nunique().idxmin()
     smallest_department_count = df.groupby('Department')['StudentID'].nunique().min()
-    print(f'Smallest department: {smallest_department} ({smallest_department_count})')
+    st.write(f'Smallest department: {smallest_department} ({smallest_department_count})')
 
     largest_dept_percentage = (largest_department_count / total_students) * 100
-    print(f'% of students in the largest department: {round(largest_dept_percentage, 2)}')
+    st.write(f'% of students in the largest department: {round(largest_dept_percentage, 2)}')
 
     avg_students_per_dept = df.groupby('Department')['StudentID'].nunique().mean()
-    print(f'Average students per department {round(avg_students_per_dept, 2)}')
+    st.write(f'Average students per department {round(avg_students_per_dept, 2)}')
 
     st.write("Here you can see an overview of the key statistics related to grades.")
 
