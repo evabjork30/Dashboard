@@ -272,27 +272,33 @@ with col2:
     max_avg_grade_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().max()
     max_avg_year_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().idxmax()
 
-    st.metric("Highest avg grade", round(max_avg_grade_d, 2))
-
     min_avg_grade_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().min()
     min_avg_year_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().idxmin()
-
-    st.metric("Lowest avg grade", round(min_avg_grade_d, 2))
 
     dept_grade_change = df[df['Department'] == selected_department].groupby('Year')[
                             'Grade'].mean().pct_change().mean() * 100
 
-    st.metric("Avg Yearly Change", f"{round(dept_grade_change, 2)}%", delta=f"{round(dept_grade_change, 2)}%")
-
     dept_rank = df.groupby('Department')['Grade'].mean().rank(ascending=False)
 
-    if selected_department in dept_rank.index:
-        st.metric(f"{selected_department} Rank in Avg Grade", int(dept_rank.loc[selected_department]))
-    else:
-        st.warning("⚠️ Selected department not found in ranking.")
+    sub_col5, sub_col6 = st.columns(2)
 
-    avg_students_per_year_d = df[df['Department'] == selected_department].groupby('Year')['StudentID'].nunique().mean()
-    st.metric("Avg students per year:", round(avg_students_per_year_d))
+    with sub_col5:
+
+        st.metric("Highest avg grade", round(max_avg_grade_d, 2))
+
+        st.metric("Lowest avg grade", round(min_avg_grade_d, 2))
+
+    with sub_col6:
+
+        st.metric("Avg Yearly Change", f"{round(dept_grade_change, 2)}%", delta=f"{round(dept_grade_change, 2)}%")
+
+        if selected_department in dept_rank.index:
+            st.metric(f"{selected_department} Rank in Avg Grade", int(dept_rank.loc[selected_department]))
+        else:
+            st.warning("⚠️ Selected department not found in ranking.")
+
+        avg_students_per_year_d = df[df['Department'] == selected_department].groupby('Year')['StudentID'].nunique().mean()
+        st.metric("Avg students per year:", round(avg_students_per_year_d))
 
 
 st.write("")  # Add one blank line
