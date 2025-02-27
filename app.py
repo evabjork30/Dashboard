@@ -198,19 +198,24 @@ with col5:
     avg_grade_latest = df[df['Year'] == df['Year'].max()]['Grade'].mean()
     inflation_since_2019 = ((avg_grade_latest - avg_grade_2019) / avg_grade_2019) * 100
 
-    st.metric("Overall avg grade", round(overall_avg_grade, 2))
+    sub_col3, sub_col4 = st.columns(2)
 
-    #print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
-    st.metric("Lowest avg grade", round(min_avg_grade, 2))
+    with sub_col3:
 
-    #print(f'Highest avg grade: {round(max_avg_grade, 2)} ({max_avg_year})')
-    st.metric("Highest avg grade", round(max_avg_grade, 2))
+        st.metric("Overall avg grade", round(overall_avg_grade, 2))
 
-    #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
-    st.metric("Avg yearly change", round(yearly_grade_change, 2))
+        #print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
+        st.metric("Lowest avg grade", round(min_avg_grade, 2))
 
-    #print(f'Grade inflation since 2019: +{round(inflation_since_2019, 2)}%')
-    st.metric("Grade inflation since 2019", round(inflation_since_2019, 2))
+        #print(f'Highest avg grade: {round(max_avg_grade, 2)} ({max_avg_year})')
+        st.metric("Highest avg grade", round(max_avg_grade, 2))
+
+    with sub_col4:
+        #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
+        st.metric("Avg yearly change", round(yearly_grade_change, 2))
+
+        #print(f'Grade inflation since 2019: +{round(inflation_since_2019, 2)}%')
+        st.metric("Grade inflation since 2019", round(inflation_since_2019, 2))
 
 with col6:
     st.write("### 📊 Trend of Average Grades")
