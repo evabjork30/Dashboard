@@ -189,6 +189,9 @@ with col5:
     max_avg_grade = df.groupby('Year')['Grade'].mean().max()
     max_avg_year = df.groupby('Year')['Grade'].mean().idxmax()
     yearly_grade_change = df.groupby('Year')['Grade'].mean().pct_change().mean() * 100
+    avg_grade_2019 = df[df['Year'] == 2019]['Grade'].mean()
+    avg_grade_latest = df[df['Year'] == df['Year'].max()]['Grade'].mean()
+    inflation_since_2019 = ((avg_grade_latest - avg_grade_2019) / avg_grade_2019) * 100
 
     st.metric("Overall avg grade", round(overall_avg_grade, 2))
 
@@ -201,10 +204,8 @@ with col5:
     #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
     st.metric("Avg yearly change", round(yearly_grade_change, 2))
 
-    avg_grade_2019 = df[df['Year'] == 2019]['Grade'].mean()
-    avg_grade_latest = df[df['Year'] == df['Year'].max()]['Grade'].mean()
-    inflation_since_2019 = ((avg_grade_latest - avg_grade_2019) / avg_grade_2019) * 100
-    print(f'Grade inflation since 2019: +{round(inflation_since_2019, 2)}%')
+    #print(f'Grade inflation since 2019: +{round(inflation_since_2019, 2)}%')
+    st.metric("Grade inflation since 2019", round(inflation_since_2019, 2))
 
 with col6:
     st.write("### 📊 Trend of Average Grades")
