@@ -281,10 +281,9 @@ with col2:
 
     dept_grade_change = df[df['Department'] == selected_department].groupby('Year')[
                             'Grade'].mean().pct_change().mean() * 100
-    #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
-    st.metric("Avg yearly change", round(dept_grade_change, 2))
 
-    #selected_department = "Your Department Name"  # Replace with a dynamic selection if needed
+    st.metric("Avg Yearly Change", f"{round(dept_grade_change, 2)}%", delta=f"{round(dept_grade_change, 2)}%")
+
     dept_rank = df.groupby('Department')['Grade'].mean().rank(ascending=False)
 
     if selected_department in dept_rank.index:
@@ -293,7 +292,6 @@ with col2:
         st.warning("⚠️ Selected department not found in ranking.")
 
     avg_students_per_year_d = df[df['Department'] == selected_department].groupby('Year')['StudentID'].nunique().mean()
-    #print(f'Avg students per year: {avg_students_per_year_d}')
     st.metric("Avg students per year:", avg_students_per_year_d)
 
 
