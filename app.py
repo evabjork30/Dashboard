@@ -190,7 +190,7 @@ with col5:
     st.metric("Overall avg grade", round(overall_avg_grade, 2))
 
     #print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
-    st.metric("Lowest avg grade", round(min_avg_grade, 2), min_avg_year)
+    st.metric("Lowest avg grade", round(min_avg_grade, 2))
 
     max_avg_grade = df.groupby('Year')['Grade'].mean().max()
     max_avg_year = df.groupby('Year')['Grade'].mean().idxmax()
