@@ -257,7 +257,29 @@ with col1:
 
 with col2:
     st.write("### 📊 Key Statistics")
-    st.write("Here you can see an overview of the key statistics related to grades.")
+    # Breytan heitir hér, selected department, sem er þá valda deildin úr dropdown menu.
+    max_avg_grade_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().max()
+    max_avg_year_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().idxmax()
+    #print(f'Highest avg grade: {round(max_avg_grade_d, 2)} ({max_avg_year_d})')
+    st.metric("Highest avg grade", round(max_avg_grade_d, 2))
+
+    min_avg_grade_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().min()
+    min_avg_year_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().idxmin()
+    #print(f'Lowest avg grade: {round(min_avg_grade_d, 2)} ({min_avg_year_d})')
+    st.metric("Lowest avg grade", round(min_avg_grade_d, 2))
+
+    dept_grade_change = df[df['Department'] == selected_department].groupby('Year')[
+                            'Grade'].mean().pct_change().mean() * 100
+    #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
+    st.metric("Avg yearly change", round(yearly_grade_change, 2))
+
+    dept_rank = df.groupby('Department')['Grade'].mean().rank(ascending=False)
+    #print(f'Department rank in avg grade: {dept_rank}')
+    st.metric("Department rank in avg grade", dept_rank)
+
+    avg_students_per_year_d = df[df['Department'] == selected_department].groupby('Year')['StudentID'].nunique().mean()
+    #print(f'Avg students per year: {avg_students_per_year_d}')
+    st.metric("Department rank in avg grade", avg_students_per_year_d)
 
 
 st.write("")  # Add one blank line
