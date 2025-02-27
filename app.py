@@ -157,7 +157,7 @@ with col_right:
     avg_students_per_dept = df.groupby('Department')['StudentID'].nunique().mean()
 
     # Total number of students
-    st.metric("Total students: ", total_students)
+    st.metric("Total students", total_students)
 
     # Largest department
     st.metric(largest_department, largest_department_count)
@@ -183,11 +183,25 @@ col5, col6 = st.columns(2)
 
 with col5:
     st.write("### 📊 Key Statistics")
-    st.metric("📈 Average Grade", round(df['Grade'].mean(), 2))
-    st.metric("📉 Lowest Grade", round(df['Grade'].min(), 2))
-    st.metric("🏆 Highest Grade", round(df['Grade'].max(), 2))
+    overall_avg_grade = df['Grade'].mean()
 
-    st.write("Here you can see an overview of the key statistics related to grades.")
+    st.metric("Overall avg grade", round(overall_avg_grade, 2))
+
+    min_avg_grade = df.groupby('Year')['Grade'].mean().min()
+    min_avg_year = df.groupby('Year')['Grade'].mean().idxmin()
+    print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
+
+    max_avg_grade = df.groupby('Year')['Grade'].mean().max()
+    max_avg_year = df.groupby('Year')['Grade'].mean().idxmax()
+    print(f'Highest avg grade: {round(max_avg_grade, 2)} ({max_avg_year})')
+
+    yearly_grade_change = df.groupby('Year')['Grade'].mean().pct_change().mean() * 100
+    print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
+
+    avg_grade_2019 = df[df['Year'] == 2019]['Grade'].mean()
+    avg_grade_latest = df[df['Year'] == df['Year'].max()]['Grade'].mean()
+    inflation_since_2019 = ((avg_grade_latest - avg_grade_2019) / avg_grade_2019) * 100
+    print(f'Grade inflation since 2019: +{round(inflation_since_2019, 2)}%')
 
 with col6:
     st.write("### 📊 Trend of Average Grades")
