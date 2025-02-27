@@ -165,11 +165,11 @@ with col_right:
     # Smallest department
     st.metric(smallest_department, smallest_department_count)
 
-    #
+    # % of students in largest department
     st.metric("% of students in largest department", round(largest_dept_percentage, 2))
 
     # Average students per department
-    st.write(f'Average students per department {round(avg_students_per_dept, 2)}')
+    st.metric("Average students per department", round(avg_students_per_dept, 2))
 
 
 st.write("")  # Add one blank line
