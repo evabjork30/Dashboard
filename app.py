@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")  # Expands the dashboard width
 
 @st.cache_data  # Cache to improve performance
 def load_data():
-    df = pd.read_excel("df_clean.xlsx")
+    df = pd.read_excel("df_27feb.xlsx")
     df['Year'] = (df['Semester'] // 10).astype(int)
     return df
 
