@@ -271,12 +271,12 @@ with col2:
     # Breytan heitir hér, selected department, sem er þá valda deildin úr dropdown menu.
     max_avg_grade_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().max()
     max_avg_year_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().idxmax()
-    #print(f'Highest avg grade: {round(max_avg_grade_d, 2)} ({max_avg_year_d})')
+
     st.metric("Highest avg grade", round(max_avg_grade_d, 2))
 
     min_avg_grade_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().min()
     min_avg_year_d = df[df['Department'] == selected_department].groupby('Year')['Grade'].mean().idxmin()
-    #print(f'Lowest avg grade: {round(min_avg_grade_d, 2)} ({min_avg_year_d})')
+
     st.metric("Lowest avg grade", round(min_avg_grade_d, 2))
 
     dept_grade_change = df[df['Department'] == selected_department].groupby('Year')[
@@ -284,7 +284,7 @@ with col2:
     #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
     st.metric("Avg yearly change", round(dept_grade_change, 2))
 
-    selected_department = "Your Department Name"  # Replace with a dynamic selection if needed
+    #selected_department = "Your Department Name"  # Replace with a dynamic selection if needed
     dept_rank = df.groupby('Department')['Grade'].mean().rank(ascending=False)
 
     if selected_department in dept_rank.index:
