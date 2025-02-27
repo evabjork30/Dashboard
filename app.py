@@ -186,15 +186,16 @@ with col5:
     overall_avg_grade = df['Grade'].mean()
     min_avg_grade = df.groupby('Year')['Grade'].mean().min()
     min_avg_year = df.groupby('Year')['Grade'].mean().idxmin()
+    max_avg_grade = df.groupby('Year')['Grade'].mean().max()
+    max_avg_year = df.groupby('Year')['Grade'].mean().idxmax()
 
     st.metric("Overall avg grade", round(overall_avg_grade, 2))
 
     #print(f'Lowest avg grade: {round(min_avg_grade, 2)} ({min_avg_year})')
     st.metric("Lowest avg grade", round(min_avg_grade, 2))
 
-    max_avg_grade = df.groupby('Year')['Grade'].mean().max()
-    max_avg_year = df.groupby('Year')['Grade'].mean().idxmax()
-    print(f'Highest avg grade: {round(max_avg_grade, 2)} ({max_avg_year})')
+    #print(f'Highest avg grade: {round(max_avg_grade, 2)} ({max_avg_year})')
+    st.metric("Highest avg grade", round(max_avg_grade, 2))
 
     yearly_grade_change = df.groupby('Year')['Grade'].mean().pct_change().mean() * 100
     print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
