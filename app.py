@@ -156,20 +156,25 @@ with col_right:
     largest_dept_percentage = (largest_department_count / total_students) * 100
     avg_students_per_dept = df.groupby('Department')['StudentID'].nunique().mean()
 
-    # Total number of students
-    st.metric("Total students", total_students)
+    sub_col1, sub_col2 = st.columns(2)
 
-    # Largest department
-    st.metric(largest_department, largest_department_count)
+    with sub_col1:
 
-    # Smallest department
-    st.metric(smallest_department, smallest_department_count)
+        # Total number of students
+        st.metric("Total students", total_students)
 
-    # % of students in largest department
-    st.metric("% of students in largest department", round(largest_dept_percentage, 2))
+        # Largest department
+        st.metric(largest_department, largest_department_count)
 
-    # Average students per department
-    st.metric("Average students per department", round(avg_students_per_dept, 2))
+        # Smallest department
+        st.metric(smallest_department, smallest_department_count)
+
+    with sub_col2:
+        # % of students in largest department
+        st.metric("% of students in largest department", round(largest_dept_percentage, 2))
+
+        # Average students per department
+        st.metric("Average students per department", round(avg_students_per_dept, 2))
 
 
 st.write("")  # Add one blank line
