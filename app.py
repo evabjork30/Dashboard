@@ -219,7 +219,7 @@ with col5:
                   delta=f"{round(inflation_since_2019, 2)}%")
 
 with col6:
-    st.write("### 📊 Trend of Average Grades")
+    st.write("### 📈 Trend of Average Grades")
     # Create a smaller figure for the trend plot
     fig, ax = plt.subplots(figsize=(10, 5))  # Reduce plot size
     ax.plot(grade_trends.index, grade_trends.values, marker='o', linestyle='-', color='red')
