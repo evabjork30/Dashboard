@@ -211,11 +211,12 @@ with col5:
         st.metric("Highest avg grade", round(max_avg_grade, 2))
 
     with sub_col4:
-        #print(f'Avg yearly change: +{round(yearly_grade_change, 2)}%')
-        st.metric("Avg yearly change", round(yearly_grade_change, 2))
+        # Print avg yearly change with % in st.metric
+        st.metric("Avg Yearly Change", f"{round(yearly_grade_change, 2)}%", delta=f"{round(yearly_grade_change, 2)}%")
 
-        #print(f'Grade inflation since 2019: +{round(inflation_since_2019, 2)}%')
-        st.metric("Grade inflation since 2019", round(inflation_since_2019, 2))
+        # Print grade inflation since 2019 with %
+        st.metric("Grade Inflation Since 2019", f"{round(inflation_since_2019, 2)}%",
+                  delta=f"{round(inflation_since_2019, 2)}%")
 
 with col6:
     st.write("### 📊 Trend of Average Grades")
