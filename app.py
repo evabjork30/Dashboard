@@ -402,7 +402,7 @@ with col7:
     st.pyplot(fig)
 
 with col8:
-    st.write("### 📊 Gender-Based Statistics")
+    st.write("### 📊 Key Statistics")
     filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]  # Exclude 'Kynsegin/annað'
     gender_stats = filtered_df.groupby('Gender')['Grade'].describe().round(2)
 
