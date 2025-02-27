@@ -318,6 +318,8 @@ with col3:
         "Rank in Avg Grade": rank_per_major.astype(int)
     })
 
+    st.write(table_data)
+
 with col4:
 
     # ------------------------------
