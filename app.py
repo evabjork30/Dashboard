@@ -338,7 +338,7 @@ with col3:
     })
 
     # 🔹 Fix: Only Apply Formatting to Numeric Columns
-    numeric_columns = ["Latest Avg Grade", "Rank in Avg Grade"]  # Only format numerical columns
+    numeric_columns = ["Latest Avg Grade"]  # Only format numerical columns
     formatted_table = table_data.copy()
     for col in numeric_columns:
         formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
@@ -417,7 +417,7 @@ with col7:
     st.pyplot(fig)
 
 with col8:
-    st.write("### 📊 Key Statistics by Gender")
+    st.write("### 📊 Key Statistics")
 
     # Filter dataset (Exclude 'Kynsegin/annað')
     filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]
