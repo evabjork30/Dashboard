@@ -461,7 +461,7 @@ st.write("")  # Add another blank line
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
 
-col9, col10 = st.columns([1.8, 1.2])
+col9, col10 = st.columns([2, 1])
 
 with col9:
 
