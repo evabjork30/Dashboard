@@ -515,7 +515,6 @@ with col10:
 
     fig_box, ax_box = plt.subplots(figsize=(8, 5))
     sns.boxplot(x=df['COVID_Period'], y=df['Grade'], palette=['lightblue', 'salmon'], ax=ax_box)
-    ax_box.set_title("Grade Distribution Before vs. After COVID", fontsize=12, weight="bold")
     ax_box.set_xlabel("Period", fontsize=10)
     ax_box.set_ylabel("Grade", fontsize=10)
     ax_box.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.5)
