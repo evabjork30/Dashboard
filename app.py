@@ -332,7 +332,7 @@ with col3:
                                     min_avg_grade_per_major.index],
         "Highest Avg Grade (Year)": [f"{max_avg_grade_per_major[i]:.2f} ({max_avg_year_per_major[i][1]})" for i in
                                      max_avg_grade_per_major.index],
-        "Avg Yearly Change (%)": avg_yearly_change_per_major.round(2),
+        "Avg Yearly Change (%)": avg_yearly_change_per_major.round(2).astype(str) + "%",
         "% of Total Students": percentage_students_per_major.round(2).astype(str) + "%",
         "Rank in Avg Grade": rank_per_major.astype(int)
     })
