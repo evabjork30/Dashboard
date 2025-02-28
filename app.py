@@ -346,13 +346,10 @@ with col3:
     # Transpose the table for better readability
     table_data_transposed = formatted_table.T  # Makes majors columns instead of rows
 
-    # Remove empty rows by resetting the index
-    cleaned_table = table_data_transposed.dropna(how="all")
-
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
-    st.table(
-        cleaned_table,  # Ensures 2 decimal places
+    st.dataframe(
+        table_data_transposed,  # Ensures 2 decimal places
         height=300, width=900  # Adjusts the table size to avoid excessive scrolling
     )
 
