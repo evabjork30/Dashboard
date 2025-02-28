@@ -594,7 +594,7 @@ with col12:
     outlier_percentage_by_dept = (outliers_by_dept / post_covid_students_by_dept) * 100
 
     # **Create a Stacked Bar Chart**
-    fig_dept, ax_dept = plt.subplots(figsize=(12, 6))
+    fig_dept, ax_dept = plt.subplots(figsize=(6, 5))
     ax_dept.bar(post_covid_students_by_dept.index, non_outliers_by_dept, color='lightblue', label='Non-Outliers')
     ax_dept.bar(post_covid_students_by_dept.index, outliers_by_dept, bottom=non_outliers_by_dept, color='lightcoral', label='Outliers')
 
