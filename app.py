@@ -592,46 +592,6 @@ with col11:
     st.pyplot(fig_gender)
 
 with col12:
-    # **🔹 Identify Outliers Post-COVID**
-    post_covid_df = df[df['Year'] >= 2020]
-    Q1, Q3 = post_covid_df['Grade'].quantile([0.25, 0.75])
-    IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    outliers_df = post_covid_df[post_covid_df['Grade'] < lower_bound]
-
-    # Display number of outliers
-    # st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
-
-    # **📈 Stacked Bar Chart: Outliers by Gender**
-    st.write("### Outlier Percentage by Gender")
-
-    # Calculate outlier percentages
-    post_covid_students = df[df['Year'] >= 2020].groupby('Gender')['StudentID'].nunique()
-    outliers_by_gender = outliers_df.groupby('Gender')['StudentID'].count()
-    outlier_percentage_post_covid = (outliers_by_gender / post_covid_students) * 100
-
-    filtered_genders = ['Karl', 'Kona']
-    post_covid_students = post_covid_students[post_covid_students.index.isin(filtered_genders)]
-    outliers_by_gender = outliers_by_gender.reindex(filtered_genders, fill_value=0)
-    non_outliers = post_covid_students - outliers_by_gender
-
-    # **Create a Stacked Bar Chart**
-    fig_gender, ax_gender = plt.subplots(figsize=(5, 5))
-    bars1 = ax_gender.bar(filtered_genders, non_outliers, color='lightblue', label='Non-Outliers')
-    bars2 = ax_gender.bar(filtered_genders, outliers_by_gender, bottom=non_outliers, color='salmon', label='Outliers')
-
-    # Add percentage labels on top
-    for i, gender in enumerate(filtered_genders):
-        percent = outlier_percentage_post_covid.get(gender, 0)
-        total = post_covid_students[gender]
-        ax_gender.text(i, total + 30, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
-
-    ax_gender.set_ylabel("Number of Students")
-    ax_gender.set_title("Total Post-COVID Students & Outliers by Gender", fontsize=12, weight="bold")
-    ax_gender.legend()
-
-    st.pyplot(fig_gender)
-
     # **📈 Stacked Bar Chart: Outliers by Department**
     st.write("### Outliers by Department Post-COVID")
 
