@@ -450,10 +450,7 @@ with col8:
 
     # Display table with better formatting
     st.write("#### 📋 Summary Statistics")
-    st.table(gender_table_data)  # Use `st.table()` for a clean, static table (no scrolling)
 
-    # Alternative: Use `st.dataframe()` for interactivity with column styling
-    st.write("#### 📊 Interactive View")
     st.dataframe(
         gender_table_data.style.format("{:.2f}"),  # Ensures 2 decimal places
         height=250, width=600  # Adjusts the table size
