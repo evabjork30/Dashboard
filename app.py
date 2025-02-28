@@ -510,8 +510,6 @@ with col10:
     # Ensure COVID period classification
     df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
 
-    st.write("## 📊 Grade Trends Before & After COVID")
-
     # **📈 Boxplot: Grade Distribution Pre/Post COVID**
     st.write("### 🎓 Grade Distribution Before vs. After COVID")
 
@@ -539,7 +537,7 @@ with col11:
     st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
 
     # **📈 Stacked Bar Chart: Outliers by Gender**
-    st.write("### 🏅 Outlier Percentage by Gender")
+    st.write("### Outlier Percentage by Gender")
 
     # Calculate outlier percentages
     post_covid_students = df[df['Year'] >= 2020].groupby('Gender')['StudentID'].nunique()
@@ -571,7 +569,7 @@ with col11:
 with col12:
 
     # **📈 Stacked Bar Chart: Outliers by Department**
-    st.write("### 🏛️ Outliers by Department Post-COVID")
+    st.write("### Outliers by Department Post-COVID")
 
     outliers_by_dept = outliers_df.groupby('Department')['StudentID'].count()
     post_covid_students_by_dept = df[df['Year'] >= 2020].groupby('Department')['StudentID'].nunique()
