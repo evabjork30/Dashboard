@@ -525,7 +525,7 @@ with col13:
     df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
 
     # **📈 Boxplot: Grade Distribution Pre/Post COVID**
-    st.write("##### 🎓 Grade Distribution Before vs. After COVID")
+    st.write("### 🎓 Grade Distribution Before vs. After COVID")
 
     fig_box, ax_box = plt.subplots(figsize=(8, 5))
     sns.boxplot(x=df['COVID_Period'], y=df['Grade'], palette=['lightblue', 'salmon'], ax=ax_box)
