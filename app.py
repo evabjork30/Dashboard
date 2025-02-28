@@ -343,8 +343,8 @@ with col3:
     # 🔹 Fix: Only Apply Formatting to Numeric Columns
     numeric_columns = ["Latest Avg Grade", "Rank in Avg Grade"]  # Only format numerical columns
     formatted_table = table_data_transposed.copy()
-    for col in numeric_columns:
-        formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
+    for column in numeric_columns:
+        formatted_table[column] = formatted_table[column].astype(float).map("{:.2f}".format)
 
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
