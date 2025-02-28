@@ -524,14 +524,32 @@ with col13:
     # Ensure COVID period classification
     df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
 
-    # **📈 Boxplot: Grade Distribution Pre/Post COVID**
+    # Calculate Outliers for Pre-COVID
+    pre_covid_df = df[df['COVID_Period'] == "Pre-COVID"]
+    Q1, Q3 = pre_covid_df['Grade'].quantile([0.25, 0.75])
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    # Filter actual outliers
+    pre_covid_outliers = pre_covid_df[(pre_covid_df['Grade'] < lower_bound) | (pre_covid_df['Grade'] > upper_bound)]
+
+    # 📈 Boxplot: Grade Distribution Pre/Post COVID
     st.write("### 🎓 Grade Distribution Before vs. After COVID")
 
     fig_box, ax_box = plt.subplots(figsize=(8, 5))
     sns.boxplot(x=df['COVID_Period'], y=df['Grade'], palette=['lightblue', 'salmon'], ax=ax_box)
+
+    # Overlay Pre-COVID Outliers as Red Dots (If Any)
+    if not pre_covid_outliers.empty:
+        ax_box.scatter(["Pre-COVID"] * len(pre_covid_outliers), pre_covid_outliers['Grade'],
+                       color='red', s=40, label="Pre-COVID Outliers")
+
+    # Final Styling
     ax_box.set_xlabel("Period", fontsize=10)
     ax_box.set_ylabel("Grade", fontsize=10)
     ax_box.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.5)
+    ax_box.legend()
 
     st.pyplot(fig_box)  # Display in Streamlit
 
