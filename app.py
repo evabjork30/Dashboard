@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import seaborn as sns
+import scipy.stats as stats
 
 
 st.set_page_config(layout="wide")  # Expands the dashboard width
@@ -554,9 +555,44 @@ with col13:
     st.pyplot(fig_box)  # Display in Streamlit
 
 with col14:
-    st.write("")  # Add one blank line
-    st.write("")  # Add another blank line
-    st.write("")  # Add one blank line
+    # Calculate Grade Statistics for Pre/Post COVID
+    pre_covid_stats = df[df['COVID_Period'] == "Pre-COVID"]['Grade'].describe()
+    post_covid_stats = df[df['COVID_Period'] == "Post-COVID"]['Grade'].describe()
+
+    # Calculate Outliers for Pre/Post COVID
+    Q1_pre, Q3_pre = pre_covid_stats["25%"], pre_covid_stats["75%"]
+    IQR_pre = Q3_pre - Q1_pre
+    lower_bound_pre = Q1_pre - 1.5 * IQR_pre
+    outliers_pre = df[(df['COVID_Period'] == "Pre-COVID") & (df['Grade'] < lower_bound_pre)]
+
+    Q1_post, Q3_post = post_covid_stats["25%"], post_covid_stats["75%"]
+    IQR_post = Q3_post - Q1_post
+    lower_bound_post = Q1_post - 1.5 * IQR_post
+    outliers_post = df[(df['COVID_Period'] == "Post-COVID") & (df['Grade'] < lower_bound_post)]
+
+    # Perform T-test
+    t_stat, p_value = stats.ttest_ind(df[df['COVID_Period'] == "Pre-COVID"]['Grade'],
+                                      df[df['COVID_Period'] == "Post-COVID"]['Grade'],
+                                      equal_var=False)
+
+    # Format p-value for display
+    p_value_formatted = "< 0.0001" if p_value < 0.0001 else f"{p_value:.4f}"
+    # **📊 Statistics Table**
+    st.write("### 📊 Key Statistics")
+
+    table_data = {
+        "Statistic": ["Mean", "Median", "Std Dev", "Outliers", "T-test p-value"],
+        "Pre-COVID": [f"{pre_covid_stats['mean']:.2f}", f"{pre_covid_stats['50%']:.2f}",
+                      f"{pre_covid_stats['std']:.2f}", len(outliers_pre), "-"],
+        "Post-COVID": [f"{post_covid_stats['mean']:.2f}", f"{post_covid_stats['50%']:.2f}",
+                       f"{post_covid_stats['std']:.2f}", len(outliers_post), p_value_formatted]
+    }
+
+    # Convert to DataFrame
+    covid_stats_df = pd.DataFrame(table_data)
+
+    # Display as Streamlit Table
+    st.dataframe(covid_stats_df, hide_index=True, use_container_width=True)
 
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
