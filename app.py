@@ -347,7 +347,7 @@ with col3:
     table_data_transposed = formatted_table.T  # Makes majors columns instead of rows
 
     # Remove empty rows by resetting the index
-    cleaned_table = table_data_transposed.dropna(how="all").reset_index()
+    cleaned_table = table_data_transposed.dropna(how="all")
 
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
