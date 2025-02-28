@@ -461,141 +461,151 @@ st.write("")  # Add another blank line
 st.write("")  # Add one blank line
 st.write("")  # Add another blank line
 
-# ------------------------------
-# 📌 COVID Time: Compare Average Grades Per Department (2019-2022)
-# ------------------------------
-st.write("### 📈 Compare Average Grades Per Department (2019-2022)")
+col9, col10 = st.columns(2)
 
-# Filter data for COVID years
-covid_df = df[(df['Year'] >= 2019) & (df['Year'] <= 2022)]
+with col9:
 
-# Compute average grade per department over time
-covid_avg_grade = covid_df.groupby(['Year', 'Department'])['Grade'].mean().reset_index()
+    # ------------------------------
+    # 📌 COVID Time: Compare Average Grades Per Department (2019-2022)
+    # ------------------------------
+    st.write("### 📈 Compare Average Grades Per Department (2019-2022)")
 
-# Multi-select dropdown to choose multiple departments
-departments = covid_avg_grade['Department'].unique()
-selected_departments = st.multiselect(
-    "Select Departments to Compare:", departments, default=departments[:3]  # Pre-select first 3 departments
-)
+    # Filter data for COVID years
+    covid_df = df[(df['Year'] >= 2019) & (df['Year'] <= 2022)]
 
-# Ensure at least one department is selected
-if selected_departments:
-    # Create the multi-line plot
-    fig, ax = plt.subplots(figsize=(10, 5))
+    # Compute average grade per department over time
+    covid_avg_grade = covid_df.groupby(['Year', 'Department'])['Grade'].mean().reset_index()
 
-    # Loop through selected departments and plot each one
-    for department in selected_departments:
-        department_data = covid_avg_grade[covid_avg_grade['Department'] == department]
-        ax.plot(department_data['Year'], department_data['Grade'], marker='o', linestyle='-', label=department)
+    # Multi-select dropdown to choose multiple departments
+    departments = covid_avg_grade['Department'].unique()
+    selected_departments = st.multiselect(
+        "Select Departments to Compare:", departments, default=departments[:3]  # Pre-select first 3 departments
+    )
 
-    # Customize the plot
-    ax.set_xlabel("Year", fontsize=12)
-    ax.set_ylabel("Average Grade", fontsize=12)
-    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
-    ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Force integer labels
+    # Ensure at least one department is selected
+    if selected_departments:
+        # Create the multi-line plot
+        fig, ax = plt.subplots(figsize=(10, 5))
 
-    # Add a legend
-    ax.legend(title="Department", bbox_to_anchor=(1.05, 1), loc='upper left')  # Moves legend outside for better visibility
+        # Loop through selected departments and plot each one
+        for department in selected_departments:
+            department_data = covid_avg_grade[covid_avg_grade['Department'] == department]
+            ax.plot(department_data['Year'], department_data['Grade'], marker='o', linestyle='-', label=department)
 
-    # Display in Streamlit
-    st.pyplot(fig)
-else:
-    st.warning("⚠ Please select at least one department to display the comparison.")
+        # Customize the plot
+        ax.set_xlabel("Year", fontsize=12)
+        ax.set_ylabel("Average Grade", fontsize=12)
+        ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.5)
+        ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Force integer labels
 
+        # Add a legend
+        ax.legend(title="Department", bbox_to_anchor=(1.05, 1), loc='upper left')  # Moves legend outside for better visibility
 
-# Ensure COVID period classification
-df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
+        # Display in Streamlit
+        st.pyplot(fig)
+    else:
+        st.warning("⚠ Please select at least one department to display the comparison.")
 
-st.write("## 📊 Grade Trends Before & After COVID")
+with col10:
+    # Ensure COVID period classification
+    df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
 
-# **📈 Boxplot: Grade Distribution Pre/Post COVID**
-st.write("### 🎓 Grade Distribution Before vs. After COVID")
+    st.write("## 📊 Grade Trends Before & After COVID")
 
-fig_box, ax_box = plt.subplots(figsize=(8, 5))
-sns.boxplot(x=df['COVID_Period'], y=df['Grade'], palette=['lightblue', 'salmon'], ax=ax_box)
-ax_box.set_title("Grade Distribution Before vs. After COVID", fontsize=12, weight="bold")
-ax_box.set_xlabel("Period", fontsize=10)
-ax_box.set_ylabel("Grade", fontsize=10)
-ax_box.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.5)
+    # **📈 Boxplot: Grade Distribution Pre/Post COVID**
+    st.write("### 🎓 Grade Distribution Before vs. After COVID")
 
-st.pyplot(fig_box)  # Display in Streamlit
+    fig_box, ax_box = plt.subplots(figsize=(8, 5))
+    sns.boxplot(x=df['COVID_Period'], y=df['Grade'], palette=['lightblue', 'salmon'], ax=ax_box)
+    ax_box.set_title("Grade Distribution Before vs. After COVID", fontsize=12, weight="bold")
+    ax_box.set_xlabel("Period", fontsize=10)
+    ax_box.set_ylabel("Grade", fontsize=10)
+    ax_box.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.5)
 
-# **🔹 Identify Outliers Post-COVID**
-post_covid_df = df[df['Year'] >= 2020]
-Q1, Q3 = post_covid_df['Grade'].quantile([0.25, 0.75])
-IQR = Q3 - Q1
-lower_bound = Q1 - 1.5 * IQR
-outliers_df = post_covid_df[post_covid_df['Grade'] < lower_bound]
+    st.pyplot(fig_box)  # Display in Streamlit
 
-# Display number of outliers
-st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
+col11, col12 = st.columns(2)
 
-# **📈 Stacked Bar Chart: Outliers by Gender**
-st.write("### 🏅 Outlier Percentage by Gender")
+with col11:
 
-# Calculate outlier percentages
-post_covid_students = df[df['Year'] >= 2020].groupby('Gender')['StudentID'].nunique()
-outliers_by_gender = outliers_df.groupby('Gender')['StudentID'].count()
-outlier_percentage_post_covid = (outliers_by_gender / post_covid_students) * 100
+    # **🔹 Identify Outliers Post-COVID**
+    post_covid_df = df[df['Year'] >= 2020]
+    Q1, Q3 = post_covid_df['Grade'].quantile([0.25, 0.75])
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    outliers_df = post_covid_df[post_covid_df['Grade'] < lower_bound]
 
-filtered_genders = ['Karl', 'Kona']
-post_covid_students = post_covid_students[post_covid_students.index.isin(filtered_genders)]
-outliers_by_gender = outliers_by_gender.reindex(filtered_genders, fill_value=0)
-non_outliers = post_covid_students - outliers_by_gender
+    # Display number of outliers
+    st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
 
-# **Create a Stacked Bar Chart**
-fig_gender, ax_gender = plt.subplots(figsize=(6, 5))
-bars1 = ax_gender.bar(filtered_genders, non_outliers, color='lightblue', label='Non-Outliers')
-bars2 = ax_gender.bar(filtered_genders, outliers_by_gender, bottom=non_outliers, color='salmon', label='Outliers')
+    # **📈 Stacked Bar Chart: Outliers by Gender**
+    st.write("### 🏅 Outlier Percentage by Gender")
 
-# Add percentage labels on top
-for i, gender in enumerate(filtered_genders):
-    percent = outlier_percentage_post_covid.get(gender, 0)
-    total = post_covid_students[gender]
-    ax_gender.text(i, total + 30, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
+    # Calculate outlier percentages
+    post_covid_students = df[df['Year'] >= 2020].groupby('Gender')['StudentID'].nunique()
+    outliers_by_gender = outliers_df.groupby('Gender')['StudentID'].count()
+    outlier_percentage_post_covid = (outliers_by_gender / post_covid_students) * 100
 
-ax_gender.set_ylabel("Number of Students")
-ax_gender.set_title("Total Post-COVID Students & Outliers by Gender", fontsize=12, weight="bold")
-ax_gender.legend()
+    filtered_genders = ['Karl', 'Kona']
+    post_covid_students = post_covid_students[post_covid_students.index.isin(filtered_genders)]
+    outliers_by_gender = outliers_by_gender.reindex(filtered_genders, fill_value=0)
+    non_outliers = post_covid_students - outliers_by_gender
 
-st.pyplot(fig_gender)
+    # **Create a Stacked Bar Chart**
+    fig_gender, ax_gender = plt.subplots(figsize=(6, 5))
+    bars1 = ax_gender.bar(filtered_genders, non_outliers, color='lightblue', label='Non-Outliers')
+    bars2 = ax_gender.bar(filtered_genders, outliers_by_gender, bottom=non_outliers, color='salmon', label='Outliers')
 
-# **📈 Stacked Bar Chart: Outliers by Department**
-st.write("### 🏛️ Outliers by Department Post-COVID")
+    # Add percentage labels on top
+    for i, gender in enumerate(filtered_genders):
+        percent = outlier_percentage_post_covid.get(gender, 0)
+        total = post_covid_students[gender]
+        ax_gender.text(i, total + 30, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
 
-outliers_by_dept = outliers_df.groupby('Department')['StudentID'].count()
-post_covid_students_by_dept = df[df['Year'] >= 2020].groupby('Department')['StudentID'].nunique()
+    ax_gender.set_ylabel("Number of Students")
+    ax_gender.set_title("Total Post-COVID Students & Outliers by Gender", fontsize=12, weight="bold")
+    ax_gender.legend()
 
-# Align indexes to avoid NaN values
-outliers_by_dept = outliers_by_dept.reindex(post_covid_students_by_dept.index, fill_value=0)
-non_outliers_by_dept = post_covid_students_by_dept - outliers_by_dept
+    st.pyplot(fig_gender)
 
-# Sort departments by total students
-sorted_indices = post_covid_students_by_dept.sort_values(ascending=False).index
-post_covid_students_by_dept = post_covid_students_by_dept.loc[sorted_indices]
-outliers_by_dept = outliers_by_dept.loc[sorted_indices]
-non_outliers_by_dept = non_outliers_by_dept.loc[sorted_indices]
+with col12:
 
-# Calculate percentage
-outlier_percentage_by_dept = (outliers_by_dept / post_covid_students_by_dept) * 100
+    # **📈 Stacked Bar Chart: Outliers by Department**
+    st.write("### 🏛️ Outliers by Department Post-COVID")
 
-# **Create a Stacked Bar Chart**
-fig_dept, ax_dept = plt.subplots(figsize=(12, 6))
-ax_dept.bar(post_covid_students_by_dept.index, non_outliers_by_dept, color='lightblue', label='Non-Outliers')
-ax_dept.bar(post_covid_students_by_dept.index, outliers_by_dept, bottom=non_outliers_by_dept, color='lightcoral', label='Outliers')
+    outliers_by_dept = outliers_df.groupby('Department')['StudentID'].count()
+    post_covid_students_by_dept = df[df['Year'] >= 2020].groupby('Department')['StudentID'].nunique()
 
-# Add percentage labels on top
-for i, dept in enumerate(post_covid_students_by_dept.index):
-    percent = outlier_percentage_by_dept[dept]
-    total = post_covid_students_by_dept[dept]
-    if percent > 1:
-        ax_dept.text(i, total + 20, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
+    # Align indexes to avoid NaN values
+    outliers_by_dept = outliers_by_dept.reindex(post_covid_students_by_dept.index, fill_value=0)
+    non_outliers_by_dept = post_covid_students_by_dept - outliers_by_dept
 
-ax_dept.set_ylabel("Number of Students")
-ax_dept.set_title("Total Post-COVID Students and Outliers by Department", fontsize=12, weight="bold")
-ax_dept.set_xticklabels(post_covid_students_by_dept.index, rotation=45, ha="right", fontsize=9)
-ax_dept.legend()
+    # Sort departments by total students
+    sorted_indices = post_covid_students_by_dept.sort_values(ascending=False).index
+    post_covid_students_by_dept = post_covid_students_by_dept.loc[sorted_indices]
+    outliers_by_dept = outliers_by_dept.loc[sorted_indices]
+    non_outliers_by_dept = non_outliers_by_dept.loc[sorted_indices]
 
-st.pyplot(fig_dept)
+    # Calculate percentage
+    outlier_percentage_by_dept = (outliers_by_dept / post_covid_students_by_dept) * 100
+
+    # **Create a Stacked Bar Chart**
+    fig_dept, ax_dept = plt.subplots(figsize=(12, 6))
+    ax_dept.bar(post_covid_students_by_dept.index, non_outliers_by_dept, color='lightblue', label='Non-Outliers')
+    ax_dept.bar(post_covid_students_by_dept.index, outliers_by_dept, bottom=non_outliers_by_dept, color='lightcoral', label='Outliers')
+
+    # Add percentage labels on top
+    for i, dept in enumerate(post_covid_students_by_dept.index):
+        percent = outlier_percentage_by_dept[dept]
+        total = post_covid_students_by_dept[dept]
+        if percent > 1:
+            ax_dept.text(i, total + 20, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
+
+    ax_dept.set_ylabel("Number of Students")
+    ax_dept.set_title("Total Post-COVID Students and Outliers by Department", fontsize=12, weight="bold")
+    ax_dept.set_xticklabels(post_covid_students_by_dept.index, rotation=45, ha="right", fontsize=9)
+    ax_dept.legend()
+
+    st.pyplot(fig_dept)
 
 
