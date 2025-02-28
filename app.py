@@ -507,6 +507,9 @@ with col9:
         st.warning("⚠ Please select at least one department to display the comparison.")
 
 with col10:
+    st.write("")  # Add one blank line
+    st.write("")  # Add another blank line
+    st.write("")  # Add one blank line
     # Ensure COVID period classification
     df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
 
