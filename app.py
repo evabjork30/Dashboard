@@ -337,7 +337,15 @@ with col3:
         "Rank in Avg Grade": rank_per_major.astype(int)
     })
 
-    st.dataframe(table_data)
+    # Transpose the table for better readability
+    table_data_transposed = table_data.T  # Makes majors columns instead of rows
+
+    # Display the table with better formatting
+    st.write("#### 📋 Summary Statistics by Major Type")
+    st.dataframe(
+        table_data_transposed.style.format("{:.2f}"),  # Ensures 2 decimal places
+        height=300, width=900  # Adjusts the table size to avoid excessive scrolling
+    )
 
 with col4:
 
@@ -402,28 +410,6 @@ with col7:
     st.pyplot(fig)
 
 with col8:
-    #st.write("### 📊 Key Statistics")
-    #filtered_df = df[df['Gender'].isin(['Karl', 'Kona'])]  # Exclude 'Kynsegin/annað'
-    #gender_stats = filtered_df.groupby('Gender')['Grade'].describe().round(2)
-
-    # Rename columns for better readability
-    #gender_stats.rename(columns={
-    #    "count": "Number of Students",
-    #    "mean": "Mean Grade",
-    #    "std": "Std Dev (Variation)",
-    #    "25%": "25th Percentile (Q1)",
-    #   "50%": "Median Grade",
-    #    "75%": "75th Percentile (Q3)",
-    #}, inplace=True)
-
-    #gender_table_data = gender_stats[
-    #    ["Mean Grade", "Median Grade", "Std Dev (Variation)", "25th Percentile (Q1)", "75th Percentile (Q3)",
-    #     "Number of Students"]]
-    #gender_table_data_transposed = gender_table_data.T
-    #gender_table_data_transposed.head()
-
-    #st.dataframe(gender_table_data)
-
     st.write("### 📊 Key Statistics by Gender")
 
     # Filter dataset (Exclude 'Kynsegin/annað')
