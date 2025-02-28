@@ -351,7 +351,7 @@ with col3:
 
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
-    st.dataframe(
+    st.table(
         cleaned_table,  # Ensures 2 decimal places
         height=300, width=900  # Adjusts the table size to avoid excessive scrolling
     )
