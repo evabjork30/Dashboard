@@ -327,21 +327,21 @@ with col3:
     rank_per_major = df.groupby('Major_Type')['Grade'].mean().rank(ascending=False)
 
     table_data = pd.DataFrame({
-        "Latest Avg Grade": latest_avg_grade_per_major.round(2),
+        "Latest_Avg_Grade": latest_avg_grade_per_major.round(2),
         "Lowest Avg Grade (Year)": [f"{min_avg_grade_per_major[i]:.2f} ({min_avg_year_per_major[i][1]})" for i in
                                     min_avg_grade_per_major.index],
         "Highest Avg Grade (Year)": [f"{max_avg_grade_per_major[i]:.2f} ({max_avg_year_per_major[i][1]})" for i in
                                      max_avg_grade_per_major.index],
         "Avg Yearly Change (%)": avg_yearly_change_per_major.round(2).astype(str) + "%",
         "% of Total Students": percentage_students_per_major.round(2).astype(str) + "%",
-        "Rank in Avg Grade": rank_per_major.astype(int)
+        "Rank_in_Avg_Grade": rank_per_major.astype(int)
     })
 
     # Transpose the table for better readability
     table_data_transposed = table_data.T  # Makes majors columns instead of rows
 
     # 🔹 Fix: Only Apply Formatting to Numeric Columns
-    numeric_columns = ["Latest Avg Grade", "Rank in Avg Grade"]  # Only format numerical columns
+    numeric_columns = ["Latest_Avg_Grade", "Rank_in_Avg_Grade"]  # Only format numerical columns
     formatted_table = table_data_transposed.copy()
     for col in numeric_columns:
         formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
