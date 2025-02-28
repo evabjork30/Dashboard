@@ -337,19 +337,15 @@ with col3:
         "Rank_in_Avg_Grade": rank_per_major.astype(int)
     })
 
-    # Transpose the table for better readability
-    table_data_transposed = table_data.T  # Makes majors columns instead of rows
-
-    # 🔹 Print column names for debugging
-    st.write("Column Names in Table:", list(table_data_transposed.columns))
-
-    # 🔹 Ensure columns exist before formatting
-    numeric_columns = ["Latest Avg Grade", "Rank in Avg Grade"]
+    # 🔹 Fix: Only Apply Formatting to Numeric Columns
+    numeric_columns = ["Latest Avg Grade", "Rank in Avg Grade"]  # Only format numerical columns
+    formatted_table = table_data.copy()
     for col in numeric_columns:
-        if col in table_data_transposed.index:  # ✅ Check if the column exists
-            table_data_transposed.loc[col] = table_data_transposed.loc[col].astype(float).map("{:.2f}".format)
-        else:
-            st.warning(f"⚠ Column '{col}' not found in the dataset!")
+        formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
+
+    # Transpose the table for better readability
+    table_data_transposed = formatted_table.T  # Makes majors columns instead of rows
+
 
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
