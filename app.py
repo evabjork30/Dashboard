@@ -556,7 +556,7 @@ with col11:
     non_outliers = post_covid_students - outliers_by_gender
 
     # **Create a Stacked Bar Chart**
-    fig_gender, ax_gender = plt.subplots(figsize=(6, 5))
+    fig_gender, ax_gender = plt.subplots(figsize=(4, 3))
     bars1 = ax_gender.bar(filtered_genders, non_outliers, color='lightblue', label='Non-Outliers')
     bars2 = ax_gender.bar(filtered_genders, outliers_by_gender, bottom=non_outliers, color='salmon', label='Outliers')
 
