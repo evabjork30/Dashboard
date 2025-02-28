@@ -340,6 +340,12 @@ with col3:
     # Transpose the table for better readability
     table_data_transposed = table_data.T  # Makes majors columns instead of rows
 
+    # 🔹 Fix: Only Apply Formatting to Numeric Columns
+    numeric_columns = ["Latest Avg Grade", "Rank in Avg Grade"]  # Only format numerical columns
+    formatted_table = table_data_transposed.copy()
+    for col in numeric_columns:
+        formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
+
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
     st.dataframe(
