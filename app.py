@@ -533,7 +533,7 @@ with col11:
     outliers_df = post_covid_df[post_covid_df['Grade'] < lower_bound]
 
     # Display number of outliers
-    st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
+    #st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
 
     # **📈 Stacked Bar Chart: Outliers by Gender**
     st.write("### Outlier Percentage by Gender")
