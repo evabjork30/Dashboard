@@ -434,8 +434,14 @@ with col8:
         "75%": "75th Percentile (Q3)",
     }, inplace=True)
 
+    # 🔹 Fix: Only Apply Formatting to Numeric Columns
+    numeric_columns = ["Mean Grade", "Std Dev (Variation)", "25th Percentile (Q1)", "Median Grade", "75th Percentile (Q3)"]  # Only format numerical columns
+    formatted_table = gender_stats.copy()
+    for col in numeric_columns:
+        formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
+
     # Select and transpose the table for better readability
-    gender_table_data = gender_stats[
+    gender_table_data = formatted_table[
         ["Mean Grade", "Median Grade", "Std Dev (Variation)",
          "25th Percentile (Q1)", "75th Percentile (Q3)", "Number of Students"]
     ].T  # Transpose: Rows → Columns
