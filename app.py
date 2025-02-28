@@ -343,15 +343,16 @@ with col3:
     for col in numeric_columns:
         formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
 
-    # Transpose the table for better readability
-    table_data_transposed = formatted_table.T  # Makes majors columns instead of rows
+    # Remove empty rows by resetting the index
+    cleaned_table = formatted_table.dropna(how="all").reset_index()
 
-    cleaned_table = table_data_transposed.dropna(how="all").reset_index()
+    # Transpose the table for better readability
+    table_data_transposed = cleaned_table.T  # Makes majors columns instead of rows
 
     # Display the table with better formatting
     st.write("#### 📋 Summary Statistics by Major Type")
     st.dataframe(
-        cleaned_table,  # Ensures 2 decimal places
+        table_data_transposed,  # Ensures 2 decimal places
         height=300, width=900  # Adjusts the table size to avoid excessive scrolling
     )
 
