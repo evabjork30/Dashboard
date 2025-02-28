@@ -501,3 +501,101 @@ if selected_departments:
     st.pyplot(fig)
 else:
     st.warning("⚠ Please select at least one department to display the comparison.")
+
+
+# Ensure COVID period classification
+df['COVID_Period'] = df['Year'].apply(lambda x: 'Pre-COVID' if x < 2020 else 'Post-COVID')
+
+st.write("## 📊 Grade Trends Before & After COVID")
+
+# **📈 Boxplot: Grade Distribution Pre/Post COVID**
+st.write("### 🎓 Grade Distribution Before vs. After COVID")
+
+fig_box, ax_box = plt.subplots(figsize=(8, 5))
+sns.boxplot(x=df['COVID_Period'], y=df['Grade'], palette=['lightblue', 'salmon'], ax=ax_box)
+ax_box.set_title("Grade Distribution Before vs. After COVID", fontsize=12, weight="bold")
+ax_box.set_xlabel("Period", fontsize=10)
+ax_box.set_ylabel("Grade", fontsize=10)
+ax_box.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.5)
+
+st.pyplot(fig_box)  # Display in Streamlit
+
+# **🔹 Identify Outliers Post-COVID**
+post_covid_df = df[df['Year'] >= 2020]
+Q1, Q3 = post_covid_df['Grade'].quantile([0.25, 0.75])
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+outliers_df = post_covid_df[post_covid_df['Grade'] < lower_bound]
+
+# Display number of outliers
+st.write(f"**🔍 Number of Outliers Post-COVID:** {len(outliers_df)}")
+
+# **📈 Stacked Bar Chart: Outliers by Gender**
+st.write("### 🏅 Outlier Percentage by Gender")
+
+# Calculate outlier percentages
+post_covid_students = df[df['Year'] >= 2020].groupby('Gender')['StudentID'].nunique()
+outliers_by_gender = outliers_df.groupby('Gender')['StudentID'].count()
+outlier_percentage_post_covid = (outliers_by_gender / post_covid_students) * 100
+
+filtered_genders = ['Karl', 'Kona']
+post_covid_students = post_covid_students[post_covid_students.index.isin(filtered_genders)]
+outliers_by_gender = outliers_by_gender.reindex(filtered_genders, fill_value=0)
+non_outliers = post_covid_students - outliers_by_gender
+
+# **Create a Stacked Bar Chart**
+fig_gender, ax_gender = plt.subplots(figsize=(6, 5))
+bars1 = ax_gender.bar(filtered_genders, non_outliers, color='lightblue', label='Non-Outliers')
+bars2 = ax_gender.bar(filtered_genders, outliers_by_gender, bottom=non_outliers, color='salmon', label='Outliers')
+
+# Add percentage labels on top
+for i, gender in enumerate(filtered_genders):
+    percent = outlier_percentage_post_covid.get(gender, 0)
+    total = post_covid_students[gender]
+    ax_gender.text(i, total + 30, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
+
+ax_gender.set_ylabel("Number of Students")
+ax_gender.set_title("Total Post-COVID Students & Outliers by Gender", fontsize=12, weight="bold")
+ax_gender.legend()
+
+st.pyplot(fig_gender)
+
+# **📈 Stacked Bar Chart: Outliers by Department**
+st.write("### 🏛️ Outliers by Department Post-COVID")
+
+outliers_by_dept = outliers_df.groupby('Department')['StudentID'].count()
+post_covid_students_by_dept = df[df['Year'] >= 2020].groupby('Department')['StudentID'].nunique()
+
+# Align indexes to avoid NaN values
+outliers_by_dept = outliers_by_dept.reindex(post_covid_students_by_dept.index, fill_value=0)
+non_outliers_by_dept = post_covid_students_by_dept - outliers_by_dept
+
+# Sort departments by total students
+sorted_indices = post_covid_students_by_dept.sort_values(ascending=False).index
+post_covid_students_by_dept = post_covid_students_by_dept.loc[sorted_indices]
+outliers_by_dept = outliers_by_dept.loc[sorted_indices]
+non_outliers_by_dept = non_outliers_by_dept.loc[sorted_indices]
+
+# Calculate percentage
+outlier_percentage_by_dept = (outliers_by_dept / post_covid_students_by_dept) * 100
+
+# **Create a Stacked Bar Chart**
+fig_dept, ax_dept = plt.subplots(figsize=(12, 6))
+ax_dept.bar(post_covid_students_by_dept.index, non_outliers_by_dept, color='lightblue', label='Non-Outliers')
+ax_dept.bar(post_covid_students_by_dept.index, outliers_by_dept, bottom=non_outliers_by_dept, color='lightcoral', label='Outliers')
+
+# Add percentage labels on top
+for i, dept in enumerate(post_covid_students_by_dept.index):
+    percent = outlier_percentage_by_dept[dept]
+    total = post_covid_students_by_dept[dept]
+    if percent > 1:
+        ax_dept.text(i, total + 20, f"{percent:.2f}%", ha='center', fontsize=10, color='black')
+
+ax_dept.set_ylabel("Number of Students")
+ax_dept.set_title("Total Post-COVID Students and Outliers by Department", fontsize=12, weight="bold")
+ax_dept.set_xticklabels(post_covid_students_by_dept.index, rotation=45, ha="right", fontsize=9)
+ax_dept.legend()
+
+st.pyplot(fig_dept)
+
+
