@@ -450,7 +450,7 @@ with col8:
     st.write("#### 📋 Summary Statistics")
 
     st.dataframe(
-        gender_table_data.style.format("{:.2f}"),  # Ensures 2 decimal places
+        gender_table_data,  # Ensures 2 decimal places
         height=250, width=600  # Adjusts the table size
     )
 
