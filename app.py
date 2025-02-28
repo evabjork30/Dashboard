@@ -344,7 +344,7 @@ with col3:
         formatted_table[col] = formatted_table[col].astype(float).map("{:.2f}".format)
 
     # Remove empty rows by resetting the index
-    cleaned_table = formatted_table.dropna(how="all").reset_index()
+    cleaned_table = formatted_table.dropna(how="all") #.reset_index()
 
     # Transpose the table for better readability
     table_data_transposed = cleaned_table.T  # Makes majors columns instead of rows
