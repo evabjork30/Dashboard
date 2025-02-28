@@ -521,6 +521,13 @@ with col10:
 
     st.pyplot(fig_box)  # Display in Streamlit
 
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+st.write("")  # Add one blank line
+st.write("")  # Add another blank line
+
 col11, col12 = st.columns(2)
 
 with col11:
